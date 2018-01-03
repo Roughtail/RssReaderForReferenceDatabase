@@ -1,0 +1,57 @@
+﻿<Window x:Class="RssReaderForReferenceDatabase._010_View.ConfigApp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:RssReaderForReferenceDatabase._015_ViewModel"
+        xmlns:BehaviorClass="clr-namespace:RssReaderForReferenceDatabase._025_Class"
+        mc:Ignorable="d"
+        Title="ConfigApp"
+        Style="{Binding Source={StaticResource DefaultWindowStyle}}"
+        BehaviorClass:AttachedProperty.BehaviorCloseProperty="{Binding FlagBehaviorClose}"
+        >
+    <Window.DataContext>
+        <vm:ConfigViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="1" Grid.Column="1"
+                Content="Test"
+                Width="80"
+                Height="80"
+                />
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Left" 
+                   Margin="10,10,0,0" 
+                   TextWrapping="Wrap" 
+                   Foreground="White"
+                   VerticalAlignment="Top"
+                   FontSize ="16">
+            <TextBlock FontSize="50">
+                あ
+            </TextBlock>
+            いうえお
+        </TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   HorizontalAlignment="Left" 
+                   Margin="10,10,0,0" 
+                   TextWrapping="Wrap" 
+                   Foreground="White"
+                   VerticalAlignment="Top"
+                   FontSize ="16">
+            <TextBlock FontSize="50">
+                あ
+            </TextBlock>
+            いうえお
+        </TextBlock>
+    </Grid>
+</Window>

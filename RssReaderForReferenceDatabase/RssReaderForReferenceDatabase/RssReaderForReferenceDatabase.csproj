@@ -54,10 +54,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="010_View\ConfigApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="010_View\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="010_View\Title.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="010_View\ConfigApp.xaml.cs">
+      <DependentUpon>ConfigApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="010_View\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="010_View\Title.xaml.cs">
+      <DependentUpon>Title.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="015_ViewModel\BaseViewModel.cs" />
+    <Compile Include="015_ViewModel\ConfigViewModel.cs" />
+    <Compile Include="015_ViewModel\MainViewModel.cs" />
+    <Compile Include="015_ViewModel\TitleViewModel.cs" />
+    <Compile Include="020_Common\Constants.cs" />
+    <Compile Include="020_Common\DelegateCommand.cs" />
+    <Compile Include="020_Common\DelegateCommandJenerics.cs" />
+    <Compile Include="025_Class\AttachedProperty.cs" />
+    <Compile Include="025_Class\EntityViewTitleHierarchy.cs" />
+    <Compile Include="025_Class\RssDetail.cs" />
+    <Compile Include="035_Enum\Enum.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -92,6 +124,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="000_Documents\" />
+    <Folder Include="005_Model\" />
+    <Folder Include="030_Interface\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

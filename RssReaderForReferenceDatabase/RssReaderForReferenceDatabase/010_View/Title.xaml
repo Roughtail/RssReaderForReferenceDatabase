@@ -1,0 +1,45 @@
+﻿<Window x:Class="RssReaderForReferenceDatabase._010_View.Title"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:RssReaderForReferenceDatabase._015_ViewModel"
+        xmlns:BehaviorClass="clr-namespace:RssReaderForReferenceDatabase._025_Class"
+        xmlns:enum="clr-namespace:RssReaderForReferenceDatabase._035_Enum"
+        mc:Ignorable="d"
+        Title="Title"
+        Style="{Binding Source={StaticResource DefaultWindowStyle}}"
+        BehaviorClass:AttachedProperty.BehaviorCloseProperty="{Binding FlagBehaviorClose}"
+        >
+    <Window.DataContext>
+        <vm:TitleViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Button Content="Main" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Width="75"
+                Command="{Binding Path=CommandJumpForOtherForm}"
+                CommandParameter="{x:Static enum:NameTitle.Main}"
+                />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Button Content="Config" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Width="75"
+                Command="{Binding Path=CommandJumpForOtherForm}"
+                CommandParameter="{x:Static enum:NameTitle.Config}"
+                />
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Button Content="Uninstall" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Width="75"
+                Command="{Binding Path=CommandJumpForOtherForm}"
+                CommandParameter="{x:Static enum:NameTitle.Uninstall}"
+                />
+        </Grid>
+    </Grid>
+</Window>

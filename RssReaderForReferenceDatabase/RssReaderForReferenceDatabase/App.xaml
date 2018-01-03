@@ -1,9 +1,189 @@
 ﻿<Application x:Class="RssReaderForReferenceDatabase.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RssReaderForReferenceDatabase"
-             StartupUri="MainWindow.xaml">
+             Startup="Application_Startup"
+             Exit="Application_Exit"
+             >
     <Application.Resources>
-         
+
+        <!--/CaptionButtonStyleKey
+        
+        -->
+        <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="Marlett"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="Transparent" SnapsToDevicePixels="True">
+                            <Border.Effect>
+                                <DropShadowEffect Opacity="0"/>
+                            </Border.Effect>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" Storyboard.TargetName="border">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Color)" Storyboard.TargetName="border">
+                                                <EasingColorKeyFrame KeyTime="0" Value="White"/>
+                                            </ColorAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Storyboard.TargetName="border">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="contentPresenter" 
+                                                Focusable="False" Margin="{TemplateBinding Padding}"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        </Style>
+
+        <!--/DefaultWindowStyle
+        
+        -->
+        <Style x:Key="DefaultWindowStyle" TargetType="Window">
+            <!--メトロスタイルアプリ推奨解像度-->
+            <Setter Property="Height" Value="768"></Setter>
+            <Setter Property="Width" Value="1366"></Setter>
+
+            <Setter Property="Margin" Value="0"></Setter>
+            <Setter Property="WindowStyle" Value="None"></Setter>
+            <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome
+                        CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
+                        ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" 
+                        GlassFrameThickness="0"
+                        UseAeroCaptionButtons="False"
+                     />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!--以下により、object｢Window｣には必ずcontrol｢Grid｣が含まれることになる-->
+                    <ControlTemplate TargetType="Window">
+                        <Border BorderBrush="Orange" BorderThickness="5">
+                            <Grid>
+                                <!--Anchor設定-->
+                                <Grid.Width>
+                                    Auto
+                                    <!--300-->
+                                </Grid.Width>
+                                <Grid.Height>
+                                    Auto
+                                    <!--200-->
+                                </Grid.Height>
+                                <Grid.HorizontalAlignment>
+                                    Stretch
+                                </Grid.HorizontalAlignment>
+                                <Grid.VerticalAlignment>
+                                    Stretch
+                                </Grid.VerticalAlignment>
+                                <!--<Grid.Margin>
+                                10
+                            </Grid.Margin>-->
+
+                                <Grid.Background>
+                                    <SolidColorBrush Color="Black"/>
+                                </Grid.Background>
+
+                                <!--Grid.ColumnDefinitions_列数｢3｣-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--Grid.ColumnDefinitions_列数｢2｣-->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1*" />
+                                    <!--10-->
+                                </Grid.RowDefinitions>
+
+                                <!--パンくずリスト-->
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <!--<Label Content="{Binding Path=Title}"/>-->
+                                    <ItemsControl ItemsSource="{Binding Path=TitleList}"
+                                              Grid.Row="0" Grid.Column="0"
+                                              >
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"></StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Title}" Foreground="White" Padding="10"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="Yellow">
+                                        </SolidColorBrush>
+                                    </Grid.Background>
+                                </Grid>
+                                <!--基本ボタン-->
+                                <Grid Grid.Row="0" Grid.Column="2">
+                                    <StackPanel Orientation="Horizontal" 
+                                            Margin="5" VerticalAlignment="Top" 
+                                            HorizontalAlignment="Right" >
+                                        <Button Content="0" Style="{DynamicResource CaptionButtonStyleKey}" />
+                                        <Button Content="1" Style="{DynamicResource CaptionButtonStyleKey}" />
+                                        <Button x:Name="btnClose" Content="r" 
+                                    Style="{DynamicResource CaptionButtonStyleKey}" 
+                                    Command="{Binding Path=CommandClose}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!--コンテンツ-->
+                                <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                                    <ContentPresenter />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>
