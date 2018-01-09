@@ -206,9 +206,11 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 default:
                     return;
             }
-
-            //var a = (ViewModelBase)ins.DataContext;
-            //a.TitleList.RemoveAt(a.TitleList.Count);
+            
+            var insDataContext = (BaseViewModel)ins.DataContext;
+            this.TitleList.Add(insDataContext.TitleList[0]);
+            insDataContext.TitleList = this.TitleList;
+            //b.TitleList.RemoveAt(a.TitleList.Count);
             ins.Show();
 
             this.FlagBehaviorClose = true;

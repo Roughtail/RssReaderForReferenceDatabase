@@ -19,7 +19,22 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
     public class MainViewModel
         : BaseViewModel
     {
-        #region DataSource
+        #region Field
+        private string windowTitle = "main";
+        public string WindowTitle
+        {
+            get
+            {
+                return this.windowTitle;
+            }
+
+            set
+            {
+                this.windowTitle = value;
+                this.RaisePropertyChanged("WindowTitle");
+            }
+        }
+
         private ObservableCollection<RssDetail> dataSource;
         public ObservableCollection<RssDetail> DataSource
         {
@@ -34,9 +49,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged("DataSource");
             }
         }
-        #endregion DataSource
 
-        #region MaxRowCount
         private int maxRowCount = 30;
         public int MaxRowCount
         {
@@ -51,9 +64,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged("MaxRowCount");
             }
         }
-        #endregion MaxRowCount
 
-        #region NewLine
         private bool newLine = true;
         public bool NewLine
         {
@@ -68,7 +79,14 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged("NewLine");
             }
         }
-        #endregion NewLine
+        #endregion Field
+
+        #region Constructor
+        public MainViewModel()
+        {
+            TitleList.Add(item: new _025_Class.EntityViewTitleHierarchy() { Title = windowTitle });
+        }
+        #endregion Constructor
 
         #region Command
 

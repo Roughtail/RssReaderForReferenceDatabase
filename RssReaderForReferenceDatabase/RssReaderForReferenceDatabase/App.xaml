@@ -150,16 +150,14 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Path=Title}" Foreground="White" Padding="10"/>
+                                                <TextBlock Text="▶" Foreground="White" Padding="10">
+                                                    <Run Text="{Binding Path=Title}"></Run>
+                                                </TextBlock>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </Grid>
                                 <Grid Grid.Row="0" Grid.Column="1">
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="Yellow">
-                                        </SolidColorBrush>
-                                    </Grid.Background>
                                 </Grid>
                                 <!--基本ボタン-->
                                 <Grid Grid.Row="0" Grid.Column="2">

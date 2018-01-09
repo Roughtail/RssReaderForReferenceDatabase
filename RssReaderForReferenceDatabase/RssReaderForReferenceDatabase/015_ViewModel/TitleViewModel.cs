@@ -1,4 +1,5 @@
 ﻿
+
 /// <summary>
 /// RssReaderForReferenceDatabase._015_ViewModel
 /// </summary>
@@ -11,18 +12,18 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         : BaseViewModel
     {
         #region Field
-        private string title = "title";
-        public string Title
+        private string windowTitle = "title";
+        public string WindowTitle
         {
             get
             {
-                return this.title;
+                return this.windowTitle;
             }
 
             set
             {
-                this.title = value;
-                this.RaisePropertyChanged("Title");
+                this.windowTitle = value;
+                this.RaisePropertyChanged("WindowTitle");
             }
         }
         #endregion
@@ -33,7 +34,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         /// </summary>
         public TitleViewModel()
         {
-            TitleList.Add(item: new _025_Class.EntityViewTitleHierarchy() { Title = title });
+            TitleList.Add(item: new _025_Class.EntityViewTitleHierarchy() { Title = windowTitle });
         }
         #endregion
     }

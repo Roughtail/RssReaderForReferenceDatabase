@@ -22,13 +22,14 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="1" Grid.Column="1"
-                Content="Test"
-                Width="80"
-                Height="80"
-                />
         <TextBlock Grid.Row="0" Grid.Column="0"
                    HorizontalAlignment="Left" 
                    Margin="10,10,0,0" 
@@ -36,10 +37,10 @@
                    Foreground="White"
                    VerticalAlignment="Top"
                    FontSize ="16">
-            <TextBlock FontSize="50">
-                あ
+            <TextBlock FontSize="45">
+                D
             </TextBlock>
-            いうえお
+            efaultBrowser
         </TextBlock>
         <TextBlock Grid.Row="1" Grid.Column="0"
                    HorizontalAlignment="Left" 
@@ -48,10 +49,34 @@
                    Foreground="White"
                    VerticalAlignment="Top"
                    FontSize ="16">
-            <TextBlock FontSize="50">
-                あ
+            <TextBlock FontSize="45">
+                I
             </TextBlock>
-            いうえお
+            mport
+        </TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   HorizontalAlignment="Left" 
+                   Margin="10,10,0,0" 
+                   TextWrapping="Wrap" 
+                   Foreground="White"
+                   VerticalAlignment="Top"
+                   FontSize ="16">
+            <TextBlock FontSize="45">
+                E
+            </TextBlock>
+            xport
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0"
+                   HorizontalAlignment="Left" 
+                   Margin="10,10,0,0" 
+                   TextWrapping="Wrap" 
+                   Foreground="White"
+                   VerticalAlignment="Top"
+                   FontSize ="16">
+            <TextBlock FontSize="45">
+                C
+            </TextBlock>
+            onvert
         </TextBlock>
     </Grid>
 </Window>
