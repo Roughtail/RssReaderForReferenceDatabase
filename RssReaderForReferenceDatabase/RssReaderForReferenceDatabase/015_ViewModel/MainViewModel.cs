@@ -1,5 +1,6 @@
 ﻿using RssReaderForReferenceDatabase._020_Common;
 using RssReaderForReferenceDatabase._025_Class;
+using RssReaderForReferenceDatabase._035_Enum;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -84,7 +85,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #region Constructor
         public MainViewModel()
         {
-            TitleList.Add(item: new _025_Class.EntityViewTitleHierarchy() { Title = windowTitle });
+            TitleList.Add(item: new EntityViewTitleHierarchy()
+            {
+                Title = windowTitle
+                ,
+                NameTitle = NameTitle.Main
+            });
         }
         #endregion Constructor
 

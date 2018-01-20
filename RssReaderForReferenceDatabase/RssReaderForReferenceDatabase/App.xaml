@@ -117,7 +117,7 @@
                                 </Grid.VerticalAlignment>
                                 <!--<Grid.Margin>
                                 10
-                            </Grid.Margin>-->
+                                </Grid.Margin>-->
 
                                 <Grid.Background>
                                     <SolidColorBrush Color="Black"/>
@@ -132,7 +132,8 @@
 
                                 <!--Grid.ColumnDefinitions_列数｢2｣-->
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
+                                    <!--<RowDefinition Height="Auto" />-->
+                                    <RowDefinition Height="60" />
                                     <RowDefinition Height="1*" />
                                     <!--10-->
                                 </Grid.RowDefinitions>
@@ -150,7 +151,40 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="▶" Foreground="White" Padding="10">
+                                                <TextBlock>
+                                                    <TextBlock.InputBindings>
+                                                        <MouseBinding Command="{Binding RelativeSource=
+                                                                                    {RelativeSource FindAncestor, 
+                                                                                AncestorType=
+                                                                                    {x:Type Window}}, 
+                                                                                Path=DataContext.CommandJumpForOtherForm}" 
+                                                                      CommandParameter="{Binding Path=NameTitle}"
+                                                                      MouseAction="LeftClick"/>
+                                                    </TextBlock.InputBindings>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Padding" Value="10"/>
+                                                            <Setter Property= "Foreground" Value="White"/>
+                                                            <Style.Triggers>
+                                                                <MultiTrigger>
+                                                                    <MultiTrigger.Conditions>
+                                                                        <Condition Property="IsMouseOver" Value="true" />
+                                                                        <Condition Property="{Binding Path=Title}" Value="{Binding Path=Title}" />
+                                                                    </MultiTrigger.Conditions>
+                                                                    <Setter Property= "Foreground" Value="Red"/>
+                                                                    <Setter Property="FontSize" Value="20"/>
+                                                                </MultiTrigger>
+                                                                <!--<Trigger Property ="IsMouseOver" Value="True">
+                                                                    <Setter Property= "Foreground" Value="Red"/>
+                                                                    <Setter Property="FontSize" Value="20"/>
+                                                                </Trigger>-->
+                                                                <!--<DataTrigger Binding="{Binding Path=Title}" Value="{Binding ElementName=Button1, Path=DataContext}">
+                                                                    <Setter Property= "Foreground" Value="Orange"/>
+                                                                </DataTrigger>-->
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                    <Run Text="▶"></Run>
                                                     <Run Text="{Binding Path=Title}"></Run>
                                                 </TextBlock>
                                             </DataTemplate>
@@ -158,17 +192,18 @@
                                     </ItemsControl>
                                 </Grid>
                                 <Grid Grid.Row="0" Grid.Column="1">
+                                    <TextBlock Text="{Binding Path=WindowTitle}" Foreground="Orange"></TextBlock>
                                 </Grid>
                                 <!--基本ボタン-->
                                 <Grid Grid.Row="0" Grid.Column="2">
                                     <StackPanel Orientation="Horizontal" 
-                                            Margin="5" VerticalAlignment="Top" 
-                                            HorizontalAlignment="Right" >
+                                                Margin="5" VerticalAlignment="Top" 
+                                                HorizontalAlignment="Right" >
                                         <Button Content="0" Style="{DynamicResource CaptionButtonStyleKey}" />
                                         <Button Content="1" Style="{DynamicResource CaptionButtonStyleKey}" />
                                         <Button x:Name="btnClose" Content="r" 
-                                    Style="{DynamicResource CaptionButtonStyleKey}" 
-                                    Command="{Binding Path=CommandClose}"/>
+                                                Style="{DynamicResource CaptionButtonStyleKey}" 
+                                                Command="{Binding Path=CommandClose}"/>
                                     </StackPanel>
                                 </Grid>
 

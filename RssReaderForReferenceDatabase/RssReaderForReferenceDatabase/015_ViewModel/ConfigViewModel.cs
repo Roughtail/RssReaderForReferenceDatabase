@@ -1,4 +1,5 @@
-﻿
+﻿using RssReaderForReferenceDatabase._025_Class;
+using RssReaderForReferenceDatabase._035_Enum;
 
 /// <summary>
 /// RssReaderForReferenceDatabase._015_ViewModel
@@ -23,7 +24,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             set
             {
                 this.windowTitle = value;
-                this.RaisePropertyChanged("WindowTite");
+                this.RaisePropertyChanged("WindowTitle");
             }
         }
         #endregion
@@ -34,7 +35,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         /// </summary>
         public ConfigViewModel()
         {
-            TitleList.Add(item: new _025_Class.EntityViewTitleHierarchy() { Title = windowTitle });
+            TitleList.Add(item: new EntityViewTitleHierarchy()
+            {
+                Title = windowTitle
+                ,
+                NameTitle = NameTitle.Config
+            });
         }
         #endregion
     }

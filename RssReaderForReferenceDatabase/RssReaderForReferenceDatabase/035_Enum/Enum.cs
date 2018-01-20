@@ -13,6 +13,10 @@ namespace RssReaderForReferenceDatabase._035_Enum
         /// <summary>
         /// 
         /// </summary>
+        Title,
+        /// <summary>
+        /// 
+        /// </summary>
         Config,
         /// <summary>
         /// 

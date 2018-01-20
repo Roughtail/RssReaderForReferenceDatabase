@@ -4,7 +4,6 @@ using RssReaderForReferenceDatabase._035_Enum;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using RssReaderForReferenceDatabase._015_ViewModel;
 
 /// <summary>
 /// RssReaderForReferenceDatabase._015_ViewModel
@@ -20,7 +19,13 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #region Field
 
         #region DataSource
+        /// <summary>
+        /// パン屑リストにて使用
+        /// </summary>
         private ObservableCollection<EntityViewTitleHierarchy> titleList;
+        /// <summary>
+        /// パン屑リストにて使用
+        /// </summary>
         public ObservableCollection<EntityViewTitleHierarchy> TitleList
         {
             get
@@ -185,6 +190,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
             switch (target)
             {
+                case NameTitle.Title:
+                    ins = new _010_View.Title
+                    {
+                        DataContext = new TitleViewModel()
+                    };
+                    break;
                 case NameTitle.Config:
                     ins = new _010_View.ConfigApp
                     {
@@ -197,20 +208,22 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                         DataContext = new MainViewModel()
                     };
                     break;
-                case NameTitle.Uninstall:
-                    ins = new _010_View.Title
-                    {
-                        DataContext = new MainViewModel()
-                    };
-                    break;
                 default:
                     return;
             }
-            
+
+            if (true)
+            {
+
+            }
+            else
+            {
+
+            }
+
             var insDataContext = (BaseViewModel)ins.DataContext;
             this.TitleList.Add(insDataContext.TitleList[0]);
             insDataContext.TitleList = this.TitleList;
-            //b.TitleList.RemoveAt(a.TitleList.Count);
             ins.Show();
 
             this.FlagBehaviorClose = true;
