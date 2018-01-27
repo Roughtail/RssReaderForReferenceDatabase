@@ -1,6 +1,7 @@
 ﻿<Application x:Class="RssReaderForReferenceDatabase.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mscorlib="clr-namespace:System;assembly=mscorlib"
              Startup="Application_Startup"
              Exit="Application_Exit"
              >
@@ -143,6 +144,7 @@
                                     <!--<Label Content="{Binding Path=Title}"/>-->
                                     <ItemsControl ItemsSource="{Binding Path=TitleList}"
                                               Grid.Row="0" Grid.Column="0"
+                                              AlternationCount="{x:Static mscorlib:Int32.MaxValue}"
                                               >
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -166,21 +168,13 @@
                                                             <Setter Property="Padding" Value="10"/>
                                                             <Setter Property= "Foreground" Value="White"/>
                                                             <Style.Triggers>
-                                                                <MultiTrigger>
-                                                                    <MultiTrigger.Conditions>
-                                                                        <Condition Property="IsMouseOver" Value="true" />
-                                                                        <Condition Property="{Binding Path=Title}" Value="{Binding Path=Title}" />
-                                                                    </MultiTrigger.Conditions>
+                                                                <DataTrigger Binding="{Binding RelativeSource=
+                                                                                    {RelativeSource FindAncestor, 
+                                                                                AncestorType=
+                                                                                    {x:Type Window}}, 
+                                                                                Path=DataContext.IsSameTitle}" Value="True">
                                                                     <Setter Property= "Foreground" Value="Red"/>
-                                                                    <Setter Property="FontSize" Value="20"/>
-                                                                </MultiTrigger>
-                                                                <!--<Trigger Property ="IsMouseOver" Value="True">
-                                                                    <Setter Property= "Foreground" Value="Red"/>
-                                                                    <Setter Property="FontSize" Value="20"/>
-                                                                </Trigger>-->
-                                                                <!--<DataTrigger Binding="{Binding Path=Title}" Value="{Binding ElementName=Button1, Path=DataContext}">
-                                                                    <Setter Property= "Foreground" Value="Orange"/>
-                                                                </DataTrigger>-->
+                                                                </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
                                                     </TextBlock.Style>
@@ -192,7 +186,6 @@
                                     </ItemsControl>
                                 </Grid>
                                 <Grid Grid.Row="0" Grid.Column="1">
-                                    <TextBlock Text="{Binding Path=WindowTitle}" Foreground="Orange"></TextBlock>
                                 </Grid>
                                 <!--基本ボタン-->
                                 <Grid Grid.Row="0" Grid.Column="2">

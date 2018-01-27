@@ -12,32 +12,16 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
     public class ConfigViewModel
         : BaseViewModel
     {
-        #region Field
-        private string windowTitle = "Config";
-        public string WindowTitle
-        {
-            get
-            {
-                return this.windowTitle;
-            }
-
-            set
-            {
-                this.windowTitle = value;
-                this.RaisePropertyChanged("WindowTitle");
-            }
-        }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
         public ConfigViewModel()
         {
+            this.WindowTitle = "Config";
             TitleList.Add(item: new EntityViewTitleHierarchy()
             {
-                Title = windowTitle
+                Title = this.WindowTitle
                 ,
                 NameTitle = NameTitle.Config
             });

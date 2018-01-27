@@ -13,6 +13,9 @@ namespace RssReaderForReferenceDatabase._025_Class
     public class AttachedProperty
     {
         #region Property
+
+        #region BehaviorCloseProperty
+        #region GetBehaviorCloseProperty
         /// <summary>
         /// GetMyProperty
         /// </summary>
@@ -22,7 +25,9 @@ namespace RssReaderForReferenceDatabase._025_Class
         {
             return (bool)obj.GetValue(BehaviorCloseProperty);
         }
+        #endregion
 
+        #region SetBehaviorCloseProperty
         /// <summary>
         /// SetMyProperty
         /// </summary>
@@ -32,7 +37,9 @@ namespace RssReaderForReferenceDatabase._025_Class
         {
             obj.SetValue(BehaviorCloseProperty, value);
         }
+        #endregion
 
+        #region BehaviorCloseProperty
         /// <summary>
         /// FlagBehaviorCloseProperty
         /// </summary>
@@ -44,6 +51,49 @@ namespace RssReaderForReferenceDatabase._025_Class
                 , typeof(AttachedProperty)
                 , new PropertyMetadata(false, OnCloseChanged)
                 );
+        #endregion
+        #endregion
+
+        //#region IsSameTitleProperty
+        //#region GetIsSameTitleProperty
+        ///// <summary>
+        ///// GetMyProperty
+        ///// </summary>
+        ///// <param name="obj"></param>
+        ///// <returns></returns>
+        //public static bool GetIsSameTitleProperty(DependencyObject obj)
+        //{
+        //    return (bool)obj.GetValue(IsSameTitleProperty);
+        //}
+        //#endregion
+
+        //#region SetIsSameTitleProperty
+        ///// <summary>
+        ///// SetMyProperty
+        ///// </summary>
+        ///// <param name="obj"></param>
+        ///// <param name="value"></param>
+        //public static void SetIsSameTitleProperty(DependencyObject obj, bool value)
+        //{
+        //    obj.SetValue(IsSameTitleProperty, value);
+        //}
+        //#endregion
+
+        //#region IsSameTitleProperty
+        ///// <summary>
+        ///// FlagBehaviorCloseProperty
+        ///// </summary>
+        //public static readonly DependencyProperty IsSameTitleProperty
+        //    = DependencyProperty.RegisterAttached
+        //    (
+        //        "IsSameTitleProperty"
+        //        , typeof(bool)
+        //        , typeof(AttachedProperty)
+        //        , new PropertyMetadata(null)
+        //        );
+        //#endregion
+        //#endregion
+
         #endregion
 
         #region Event

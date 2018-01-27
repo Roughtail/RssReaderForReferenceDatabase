@@ -21,20 +21,6 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         : BaseViewModel
     {
         #region Field
-        private string windowTitle = "main";
-        public string WindowTitle
-        {
-            get
-            {
-                return this.windowTitle;
-            }
-
-            set
-            {
-                this.windowTitle = value;
-                this.RaisePropertyChanged("WindowTitle");
-            }
-        }
 
         private ObservableCollection<RssDetail> dataSource;
         public ObservableCollection<RssDetail> DataSource
@@ -85,9 +71,10 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #region Constructor
         public MainViewModel()
         {
+            this.WindowTitle = "Main";
             TitleList.Add(item: new EntityViewTitleHierarchy()
             {
-                Title = windowTitle
+                Title = this.WindowTitle
                 ,
                 NameTitle = NameTitle.Main
             });

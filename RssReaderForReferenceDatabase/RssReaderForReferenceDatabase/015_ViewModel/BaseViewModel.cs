@@ -41,12 +41,35 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             set
             {
                 this.titleList = value;
-                this.RaisePropertyChanged("TitleList");
+                this.RaisePropertyChanged(nameof(TitleList));
+                this.RaisePropertyChanged(nameof(IsSameTitle));
             }
         }
         #endregion DataSource
 
         #region Property
+
+        /// <summary>
+        /// windowTitle
+        /// </summary>
+        private string windowTitle = string.Empty;
+        /// <summary>
+        /// WindowTitle
+        /// </summary>
+        public string WindowTitle
+        {
+            get
+            {
+                return this.windowTitle;
+            }
+
+            set
+            {
+                this.windowTitle = value;
+                this.RaisePropertyChanged(nameof(WindowTitle));
+                this.RaisePropertyChanged(nameof(IsSameTitle));
+            }
+        }
 
         #region FlagBehaviorClose
         /// <summary>
@@ -129,6 +152,13 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #endregion Field
 
         #region Method
+
+        #region IsTitle
+        /// <summary>
+        /// IsTitle
+        /// </summary>
+        public bool IsSameTitle { get { return titleList[titleList.Count - 1].Title == windowTitle; } }
+        #endregion IsTitle
 
         #region RaisePropertyChanged
         /// <summary>

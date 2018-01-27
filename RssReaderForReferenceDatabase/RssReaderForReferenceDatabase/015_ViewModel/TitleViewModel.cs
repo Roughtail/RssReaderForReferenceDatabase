@@ -12,32 +12,16 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
     public class TitleViewModel
         : BaseViewModel
     {
-        #region Field
-        private string windowTitle = "title";
-        public string WindowTitle
-        {
-            get
-            {
-                return this.windowTitle;
-            }
-
-            set
-            {
-                this.windowTitle = value;
-                this.RaisePropertyChanged("WindowTitle");
-            }
-        }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
         public TitleViewModel()
         {
+            this.WindowTitle = "Title";
             TitleList.Add(item: new EntityViewTitleHierarchy()
             {
-                Title = windowTitle
+                Title = this.WindowTitle
                 ,
                 NameTitle = NameTitle.Title
             });
