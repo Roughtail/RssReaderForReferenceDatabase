@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mscorlib="clr-namespace:System;assembly=mscorlib"
+             xmlns:convert="clr-namespace:RssReaderForReferenceDatabase._025_Class"
              Startup="Application_Startup"
              Exit="Application_Exit"
              >
@@ -141,7 +142,6 @@
 
                                 <!--パンくずリスト-->
                                 <Grid Grid.Row="0" Grid.Column="0">
-                                    <!--<Label Content="{Binding Path=Title}"/>-->
                                     <ItemsControl ItemsSource="{Binding Path=TitleList}"
                                               Grid.Row="0" Grid.Column="0"
                                               AlternationCount="{x:Static mscorlib:Int32.MaxValue}"
@@ -154,25 +154,41 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock>
+                                                    <TextBlock.Resources>
+                                                        <convert:EqualConverter x:Key="EqualConverter"/>
+                                                        <convert:ArrayConverter x:Key="ArrayConverter"/>
+                                                    </TextBlock.Resources>
                                                     <TextBlock.InputBindings>
-                                                        <MouseBinding Command="{Binding RelativeSource=
-                                                                                    {RelativeSource FindAncestor, 
-                                                                                AncestorType=
-                                                                                    {x:Type Window}}, 
-                                                                                Path=DataContext.CommandJumpForOtherForm}" 
-                                                                      CommandParameter="{Binding Path=NameTitle}"
-                                                                      MouseAction="LeftClick"/>
+                                                        <MouseBinding Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                                                        AncestorType={x:Type Window}}, 
+                                                                                        Path=DataContext.CommandJumpForOtherForm}" 
+                                                                      MouseAction="LeftClick">
+                                                            <MouseBinding.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource ArrayConverter}">
+                                                                    <Binding RelativeSource="{RelativeSource AncestorType={x:Type Window}}"
+                                                                                     Path="DataContext.WindowTitle"/>
+                                                                    <Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" 
+                                                                                     Path="(ItemsControl.AlternationIndex)"/>
+                                                                </MultiBinding>
+                                                            </MouseBinding.CommandParameter>
+                                                        </MouseBinding>
                                                     </TextBlock.InputBindings>
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock">
                                                             <Setter Property="Padding" Value="10"/>
                                                             <Setter Property= "Foreground" Value="White"/>
                                                             <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding RelativeSource=
-                                                                                    {RelativeSource FindAncestor, 
-                                                                                AncestorType=
-                                                                                    {x:Type Window}}, 
-                                                                                Path=DataContext.IsSameTitle}" Value="True">
+                                                                <DataTrigger Value="True">
+                                                                    <DataTrigger.Binding>
+                                                                        <MultiBinding Converter="{StaticResource EqualConverter}">
+                                                                            <Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" 
+                                                                                     Path="(ItemsControl.AlternationIndex)"/>
+                                                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type Window}}"
+                                                                                     Path="DataContext.WindowTitle"/>
+                                                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type Window}}"
+                                                                                     Path="DataContext.TitleList"/>
+                                                                        </MultiBinding>
+                                                                    </DataTrigger.Binding>
                                                                     <Setter Property= "Foreground" Value="Red"/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>

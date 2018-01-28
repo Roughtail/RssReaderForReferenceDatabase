@@ -242,15 +242,6 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                     return;
             }
 
-            if (true)
-            {
-
-            }
-            else
-            {
-
-            }
-
             var insDataContext = (BaseViewModel)ins.DataContext;
             this.TitleList.Add(insDataContext.TitleList[0]);
             insDataContext.TitleList = this.TitleList;

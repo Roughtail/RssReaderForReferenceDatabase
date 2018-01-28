@@ -88,6 +88,7 @@
     <Compile Include="020_Common\DelegateCommand.cs" />
     <Compile Include="020_Common\DelegateCommandJenerics.cs" />
     <Compile Include="025_Class\AttachedProperty.cs" />
+    <Compile Include="025_Class\Converter.cs" />
     <Compile Include="025_Class\EntityViewTitleHierarchy.cs" />
     <Compile Include="025_Class\RssDetail.cs" />
     <Compile Include="035_Enum\Enum.cs" />
