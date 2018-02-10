@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using RssReaderForReferenceDatabase._035_Enum;
 
 /// <summary>
 /// RssReaderForReferenceDatabase
@@ -22,40 +23,6 @@ namespace RssReaderForReferenceDatabase
         /// </summary>
         private static Mutex globalVaMutex = null;
         #endregion GlobalVariable
-
-        #region Enum
-
-        #region StartUpTitle
-        /// <summary>
-        /// StartUpTitle
-        /// <para>拡張性を考慮し、シード5で連番付与</para>
-        /// </summary>
-        private enum StartUpTitle
-        {
-            /// <summary>
-            /// 予定外
-            /// </summary>
-            AAA_Unknown = 0,
-            /// <summary>
-            /// 初期起動時の画面
-            /// </summary>
-            AAF_Title = 5,
-            /// <summary>
-            /// 設定画面
-            /// </summary>
-            AAK_Config = 10,
-            /// <summary>
-            /// バイナリ削除時画面
-            /// </summary>
-            AAP_Uninstall = 15,
-            /// <summary>
-            /// コンテンツ画面
-            /// </summary>
-            AAU_Main = 20
-        }
-        #endregion
-
-        #endregion Enum
 
         #region Delegate
 
@@ -102,17 +69,18 @@ namespace RssReaderForReferenceDatabase
                     return;
                 }
 
-                ExecuteSystem ins = WakeUpDefaultWindow;
+                ExecuteSystem instance = WakeUpDefaultWindow;
+
                 {
                     int.TryParse(Settings.Default.StartUpTitle, out int work);
                     switch ((StartUpTitle)work)
                     {
                         case StartUpTitle.AAA_Unknown:
                             SetStartupTitle(StartUpTitle.AAF_Title);
-                            ins = WakeUpDefaultWindow;
+                            instance = WakeUpDefaultWindow;
                             break;
                         case StartUpTitle.AAF_Title:
-                            ins = WakeUpMainWindow;
+                            instance = WakeUpMainWindow;
                             break;
                         case StartUpTitle.AAK_Config:
 
@@ -127,12 +95,13 @@ namespace RssReaderForReferenceDatabase
                             throw new Exception();
                     }
                 }
-                if (ins == null)
+
+                if (instance == null)
                 {
                     return;
                 }
 
-                ins();
+                instance();
             }
             catch (Exception)
             {

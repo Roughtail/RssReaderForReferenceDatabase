@@ -1,5 +1,4 @@
-﻿
-using RssReaderForReferenceDatabase._035_Enum;
+﻿using RssReaderForReferenceDatabase._035_Enum;
 
 /// <summary>
 /// RssReaderForReferenceDatabase._025_Class

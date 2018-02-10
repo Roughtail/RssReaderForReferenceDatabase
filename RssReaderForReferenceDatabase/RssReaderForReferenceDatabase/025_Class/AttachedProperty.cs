@@ -54,46 +54,6 @@ namespace RssReaderForReferenceDatabase._025_Class
         #endregion
         #endregion
 
-        //#region IsSameTitleProperty
-        //#region GetIsSameTitleProperty
-        ///// <summary>
-        ///// GetMyProperty
-        ///// </summary>
-        ///// <param name="obj"></param>
-        ///// <returns></returns>
-        //public static bool GetIsSameTitleProperty(DependencyObject obj)
-        //{
-        //    return (bool)obj.GetValue(IsSameTitleProperty);
-        //}
-        //#endregion
-
-        //#region SetIsSameTitleProperty
-        ///// <summary>
-        ///// SetMyProperty
-        ///// </summary>
-        ///// <param name="obj"></param>
-        ///// <param name="value"></param>
-        //public static void SetIsSameTitleProperty(DependencyObject obj, bool value)
-        //{
-        //    obj.SetValue(IsSameTitleProperty, value);
-        //}
-        //#endregion
-
-        //#region IsSameTitleProperty
-        ///// <summary>
-        ///// FlagBehaviorCloseProperty
-        ///// </summary>
-        //public static readonly DependencyProperty IsSameTitleProperty
-        //    = DependencyProperty.RegisterAttached
-        //    (
-        //        "IsSameTitleProperty"
-        //        , typeof(bool)
-        //        , typeof(AttachedProperty)
-        //        , new PropertyMetadata(null)
-        //        );
-        //#endregion
-        //#endregion
-
         #endregion
 
         #region Event

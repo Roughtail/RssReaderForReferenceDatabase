@@ -48,54 +48,45 @@ namespace RssReaderForReferenceDatabase._020_Common
         }
         #endregion
 
+        #region EventHandler
+        /// <summary>
+        /// EventHandler｢CanExecuteChanged｣実装
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+        #endregion
+
         #region Method
         /// <summary>
-        /// Constructorで準備されたコマンドを実行します。
+        /// Interface｢ICommand｣実装
+        /// <para>Constructorで準備されたコマンドを実行します。</para>
         /// </summary>
         /// <param name="parameter"></param>
-        public void Execute(object parameter)
+        void ICommand.Execute(object parameter)
         {
             this._execute((T)parameter);
         }
 
         /// <summary>
-        /// Constructorで準備されたコマンドが
+        /// Interface｢ICommand｣実装
+        /// <para>Constructorで準備されたコマンドが</para>
         /// <para>実行可能な状態かどうか問い合わせます。</para>
-        /// </summary>
-        /// <param name="parameter"></param>
-        /// <returns>実行可能:true</returns>
-        public bool CanExecute(object parameter)
-        {
-            //現時点ではparameterによる判断不要
-            return this._canExecute();
-        }
-        #endregion
-
-        #region EventHandler
-        /// <summary>
-        /// EventHandler｢CanExecuteChanged｣実装
-        /// </summary>
-        public event EventHandler CanExecuteChanged;
-        #endregion
-
-        #region FromInterface
-        /// <summary>
-        /// Interface｢ICommand｣実装
-        /// </summary>
-        /// <param name="parameter"></param>
-        void ICommand.Execute(object parameter)
-        {
-            this.Execute((T)parameter);
-        }
-
-        /// <summary>
-        /// Interface｢ICommand｣実装
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
         bool ICommand.CanExecute(object parameter)
         {
-            return this.CanExecute((T)parameter);
+            return this._canExecute();
         }
         #endregion
     }

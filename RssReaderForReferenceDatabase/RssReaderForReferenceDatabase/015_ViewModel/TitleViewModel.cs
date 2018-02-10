@@ -18,7 +18,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         /// </summary>
         public TitleViewModel()
         {
-            this.WindowTitle = "Title";
+            this.WindowTitle = NameTitle.Title.ToString();
             TitleList.Add(item: new EntityViewTitleHierarchy()
             {
                 Title = this.WindowTitle
@@ -27,5 +27,6 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             });
         }
         #endregion
+
     }
 }

@@ -16,11 +16,11 @@ namespace RssReaderForReferenceDatabase._020_Common
         /// <summary>
         /// Constructorでコマンドが用意される
         /// </summary>
-        private Action execute;
+        private readonly Action execute;
         /// <summary>
         /// Constructorで準備されたコマンドが実行可能かどうか
         /// </summary>
-        private Func<bool> canExecute;
+        private readonly Func<bool> canExecute;
         #endregion
 
         #region Constructor

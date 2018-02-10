@@ -71,7 +71,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #region Constructor
         public MainViewModel()
         {
-            this.WindowTitle = "Main";
+            this.WindowTitle = NameTitle.Main.ToString();
             TitleList.Add(item: new EntityViewTitleHierarchy()
             {
                 Title = this.WindowTitle
@@ -165,7 +165,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 {
                     File.Move(Constants.WorkRssFileName, Constants.RssFileName);
                 }
+#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 catch (Exception ex)
+#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 {
                     //log
                     return false;
@@ -223,7 +225,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
                         }
                     }
+#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     catch (Exception ex)
+#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     {
 
                         throw;
@@ -239,7 +243,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                     {
                         File.Delete(Constants.WorkRssFileName);
                     }
+#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     catch (Exception ex)
+#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     {
                         //log
                         return false;
@@ -250,7 +256,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
                 return true;
             }
+#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             catch (Exception ex)
+#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             {
                 return false;
             }
@@ -293,7 +301,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                                 contents: sr.ReadToEnd(),
                                 encoding: Encoding.UTF8);
                         }
+#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                         catch (Exception ex)
+#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                         {
                             //log
                         }
@@ -306,7 +316,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
                 return true;
             }
+#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             catch (Exception ex)
+#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             {
                 return false;
             }
@@ -448,7 +460,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                     #endregion check&save
                     DataSource.Add(work);
                 }
+#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 catch (Exception ex)
+#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 {
                     //log
                     //不明な行はSkip対応

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mscorlib="clr-namespace:System;assembly=mscorlib"
              xmlns:convert="clr-namespace:RssReaderForReferenceDatabase._025_Class"
+             xmlns:enum="clr-namespace:RssReaderForReferenceDatabase._035_Enum"
              Startup="Application_Startup"
              Exit="Application_Exit"
              >
@@ -82,7 +83,6 @@
             <!--メトロスタイルアプリ推奨解像度-->
             <Setter Property="Height" Value="768"></Setter>
             <Setter Property="Width" Value="1366"></Setter>
-
             <Setter Property="Margin" Value="0"></Setter>
             <Setter Property="WindowStyle" Value="None"></Setter>
             <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
@@ -93,14 +93,15 @@
                         ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" 
                         GlassFrameThickness="0"
                         UseAeroCaptionButtons="False"
-                     />
+                        CornerRadius="0"
+                        />
                 </Setter.Value>
             </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <!--以下により、object｢Window｣には必ずcontrol｢Grid｣が含まれることになる-->
                     <ControlTemplate TargetType="Window">
-                        <Border BorderBrush="Orange" BorderThickness="5">
+                        <Border BorderBrush="Orange" BorderThickness="2" CornerRadius="0">
                             <Grid>
                                 <!--Anchor設定-->
                                 <Grid.Width>
@@ -156,19 +157,23 @@
                                                 <TextBlock>
                                                     <TextBlock.Resources>
                                                         <convert:EqualConverter x:Key="EqualConverter"/>
-                                                        <convert:ArrayConverter x:Key="ArrayConverter"/>
+                                                        <convert:ArrayConverterForTeleport x:Key="ArrayConverterForTeleport"/>
                                                     </TextBlock.Resources>
                                                     <TextBlock.InputBindings>
                                                         <MouseBinding Command="{Binding RelativeSource={RelativeSource FindAncestor, 
                                                                                         AncestorType={x:Type Window}}, 
-                                                                                        Path=DataContext.CommandJumpForOtherForm}" 
+                                                                                        Path=DataContext.CommandDispatching}" 
                                                                       MouseAction="LeftClick">
                                                             <MouseBinding.CommandParameter>
-                                                                <MultiBinding Converter="{StaticResource ArrayConverter}">
-                                                                    <Binding RelativeSource="{RelativeSource AncestorType={x:Type Window}}"
-                                                                                     Path="DataContext.WindowTitle"/>
+                                                                <MultiBinding Converter="{StaticResource ArrayConverterForTeleport}">
+                                                                    <Binding RelativeSource="{RelativeSource FindAncestor, 
+                                                                        AncestorType={x:Type TextBlock}}"
+                                                                                     Path="DataContext.NameTitle"/>
                                                                     <Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" 
                                                                                      Path="(ItemsControl.AlternationIndex)"/>
+                                                                    <Binding RelativeSource="{RelativeSource FindAncestor, 
+                                                                        AncestorType={x:Type Window}}"
+                                                                                     Path="DataContext.WindowTitle"/>
                                                                 </MultiBinding>
                                                             </MouseBinding.CommandParameter>
                                                         </MouseBinding>
@@ -177,6 +182,7 @@
                                                         <Style TargetType="TextBlock">
                                                             <Setter Property="Padding" Value="10"/>
                                                             <Setter Property= "Foreground" Value="White"/>
+                                                            <!--現在画面名の強調-->
                                                             <Style.Triggers>
                                                                 <DataTrigger Value="True">
                                                                     <DataTrigger.Binding>
@@ -212,7 +218,14 @@
                                         <Button Content="1" Style="{DynamicResource CaptionButtonStyleKey}" />
                                         <Button x:Name="btnClose" Content="r" 
                                                 Style="{DynamicResource CaptionButtonStyleKey}" 
-                                                Command="{Binding Path=CommandClose}"/>
+                                                Command="{Binding Path=CommandDispatching}">
+                                            <Button.Resources>
+                                                <convert:ArrayConverterForClose x:Key="ArrayConverterForClose"/>
+                                            </Button.Resources>
+                                            <Button.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource ArrayConverterForClose}" />
+                                            </Button.CommandParameter>
+                                        </Button>
                                     </StackPanel>
                                 </Grid>
 

@@ -18,7 +18,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         /// </summary>
         public ConfigViewModel()
         {
-            this.WindowTitle = "Config";
+            this.WindowTitle = NameTitle.Config.ToString();
             TitleList.Add(item: new EntityViewTitleHierarchy()
             {
                 Title = this.WindowTitle

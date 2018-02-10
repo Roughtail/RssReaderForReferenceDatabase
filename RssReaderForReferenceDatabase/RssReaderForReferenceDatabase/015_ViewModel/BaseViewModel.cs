@@ -42,7 +42,6 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             {
                 this.titleList = value;
                 this.RaisePropertyChanged(nameof(TitleList));
-                this.RaisePropertyChanged(nameof(IsSameTitle));
             }
         }
         #endregion DataSource
@@ -67,7 +66,6 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             {
                 this.windowTitle = value;
                 this.RaisePropertyChanged(nameof(WindowTitle));
-                this.RaisePropertyChanged(nameof(IsSameTitle));
             }
         }
 
@@ -94,51 +92,53 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         }
         #endregion
 
-        #region CommandClose
+        #region CommandDispatching
         /// <summary>
-        /// commandClose
+        /// commandDispatching
         /// </summary>
-        private DelegateCommand commandClose;
+        private DelegateCommandJenerics<object> commandDispatching;
         /// <summary>
-        /// CommandClose
+        /// CommandDispatching
         /// </summary>
-        public DelegateCommand CommandClose
+        public DelegateCommandJenerics<object> CommandDispatching
         {
             get
             {
-                if (this.commandClose == null)
+                if (commandDispatching == null)
                 {
-                    this.commandClose = new DelegateCommand(CloseForm, CanCloseForm);
+                    commandDispatching =
+                        new DelegateCommandJenerics<object>(DispatchCommonProcess, CanDispatchCommonProcess);
                 }
-                return commandClose;
+                return commandDispatching;
             }
-            set { commandClose = value; }
+            set
+            { commandDispatching = value; }
         }
         #endregion
 
-        #region CommandJumpForOtherForm
-        /// <summary>
-        /// commandJumpForOtherForm
-        /// </summary>
-        private DelegateCommandJenerics<NameTitle> commandJumpForOtherForm;
-        /// <summary>
-        /// CommandJumpForOtherForm
-        /// </summary>
-        public DelegateCommandJenerics<NameTitle> CommandJumpForOtherForm
-        {
-            get
-            {
-                if (commandJumpForOtherForm == null)
-                {
-                    commandJumpForOtherForm =
-                        new DelegateCommandJenerics<NameTitle>(WalkForNearForm, CanWalkForNearForm);
-                }
+        //#region CommandJumpForOtherForm
+        ///// <summary>
+        ///// commandJumpForOtherForm
+        ///// </summary>
+        //private DelegateCommandJenerics<NameTitle> commandJumpForOtherForm;
+        ///// <summary>
+        ///// CommandJumpForOtherForm
+        ///// </summary>
+        //public DelegateCommandJenerics<NameTitle> CommandJumpForOtherForm
+        //{
+        //    get
+        //    {
+        //        if (commandJumpForOtherForm == null)
+        //        {
+        //            commandJumpForOtherForm =
+        //                new DelegateCommandJenerics<NameTitle>(WalkForNearForm, CanWalkForNearForm);
+        //        }
 
-                return commandJumpForOtherForm;
-            }
-            set { commandJumpForOtherForm = value; }
-        }
-        #endregion
+        //        return commandJumpForOtherForm;
+        //    }
+        //    set { commandJumpForOtherForm = value; }
+        //}
+        //#endregion
 
         #region Event
         /// <summary>
@@ -152,13 +152,6 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #endregion Field
 
         #region Method
-
-        #region IsTitle
-        /// <summary>
-        /// IsTitle
-        /// </summary>
-        public bool IsSameTitle { get { return titleList[titleList.Count - 1].Title == windowTitle; } }
-        #endregion IsTitle
 
         #region RaisePropertyChanged
         /// <summary>
@@ -177,15 +170,6 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         {
             this.FlagBehaviorClose = true;
         }
-
-        /// <summary>
-        /// CanCloseForm
-        /// </summary>
-        /// <returns></returns>
-        protected bool CanCloseForm()
-        {
-            return true;
-        }
         #endregion
 
         #region Teleport
@@ -193,32 +177,18 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         /// TeleportForOtherForm
         /// </summary>
         /// <param name="target"></param>
-        private void TeleportForOtherForm(NameTitle target)
+        private void TeleportForOtherForm(object Arguments)
         {
-            //
-            WalkForNearForm(target);
-        }
-        /// <summary>
-        /// CanTeleportForOtherForm
-        /// </summary>
-        /// <returns></returns>
-        private bool CanTeleportForOtherForm()
-        {
-            return true;
-        }
-        #endregion
+            var arguments = Arguments as ArgumentsForTeleportManager;
+            if (arguments == null)
+            {
+                return;
+            }
 
-        #region WalkForNearForm
-        /// <summary>
-        /// WalkForNearForm
-        /// </summary>
-        /// <param name="target"></param>
-        private void WalkForNearForm(NameTitle target)
-        {
             Window ins = null;
             var a = new BaseViewModel() { TitleList = this.TitleList };
 
-            switch (target)
+            switch (arguments.WindowTitle)
             {
                 case NameTitle.Title:
                     ins = new _010_View.Title
@@ -243,17 +213,66 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             }
 
             var insDataContext = (BaseViewModel)ins.DataContext;
-            this.TitleList.Add(insDataContext.TitleList[0]);
-            insDataContext.TitleList = this.TitleList;
+            if (arguments.Index != (int)Others.Nothing)
+            {
+                for (int i = arguments.Index + 1; i < this.titleList.Count; i++)
+                {
+                    this.titleList.RemoveAt(i);
+                }
+            }
+            else
+            {
+                this.TitleList.Add(insDataContext.TitleList[0]);
+            }
+                insDataContext.TitleList = this.TitleList;
+
             ins.Show();
 
             this.FlagBehaviorClose = true;
         }
         /// <summary>
-        /// CanJumpForNearForm
+        /// CanTeleportForOtherForm
         /// </summary>
         /// <returns></returns>
-        private bool CanWalkForNearForm()
+        private bool CanTeleportForOtherForm()
+        {
+            return true;
+        }
+        #endregion
+
+        #region DispatchCommonProcess
+        /// <summary>
+        /// DispatchCommonProcess
+        /// </summary>
+        /// <param name="Arguments"></param>
+        protected virtual void DispatchCommonProcess(object Arguments)
+        {
+            //ユーザの希望処理電文を解析
+            var argumentsData = Arguments as ArgumentsCommonProcessTarget;
+            switch (argumentsData.NameCommonProcess)
+            {
+                //画面遷移
+                case NameCommonProcess.TeleportForOtherForm:
+                    TeleportForOtherForm(argumentsData.Data);
+                    CloseForm();
+                    break;
+
+                case NameCommonProcess.CloseForm:
+                    CloseForm();
+                    break;
+
+                case NameCommonProcess.DoNothing:
+                default:
+                    break;
+            }
+            return;
+        }
+
+        /// <summary>
+        /// CanDispatchCommonProcess
+        /// </summary>
+        /// <returns></returns>
+        private bool CanDispatchCommonProcess()
         {
             return true;
         }
