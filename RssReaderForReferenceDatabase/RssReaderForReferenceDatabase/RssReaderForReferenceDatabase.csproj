@@ -91,6 +91,7 @@
     <Compile Include="025_Class\AttachedProperty.cs" />
     <Compile Include="025_Class\Converter.cs" />
     <Compile Include="025_Class\EntityViewTitleHierarchy.cs" />
+    <Compile Include="025_Class\ErrorWriter.cs" />
     <Compile Include="025_Class\RssDetail.cs" />
     <Compile Include="035_Enum\Enum.cs" />
     <Compile Include="App.xaml.cs">

@@ -249,6 +249,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         {
             //ユーザの希望処理電文を解析
             var argumentsData = Arguments as ArgumentsCommonProcessTarget;
+
+            if (argumentsData is null)
+            {
+                return;
+            }
+
             switch (argumentsData.NameCommonProcess)
             {
                 //画面遷移

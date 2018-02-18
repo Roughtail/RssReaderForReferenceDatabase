@@ -7,7 +7,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
 using System.Xml.Linq;
+using System.Windows.Threading;
 
 /// <summary>
 /// RssReaderForReferenceDatabase._015_ViewModel
@@ -21,8 +26,14 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         : BaseViewModel
     {
         #region Field
-
+        #region DataSource
+        /// <summary>
+        /// dataSource
+        /// </summary>
         private ObservableCollection<RssDetail> dataSource;
+        /// <summary>
+        /// DataSource
+        /// </summary>
         public ObservableCollection<RssDetail> DataSource
         {
             get
@@ -36,6 +47,29 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged("DataSource");
             }
         }
+        #endregion
+
+        #region ProcessedDataSource
+        /// <summary>
+        /// processedDataSource
+        /// </summary>
+        private DockPanel processedDataSource;
+        /// <summary>
+        /// ProcessedDataSource
+        /// </summary>
+        public DockPanel ProcessedDataSource
+        {
+            get
+            {
+                return this.processedDataSource;
+            }
+            set
+            {
+                this.processedDataSource = value;
+                this.RaisePropertyChanged("ProcessedDataSource");
+            }
+        }
+        #endregion
 
         private int maxRowCount = 30;
         public int MaxRowCount
@@ -69,6 +103,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #endregion Field
 
         #region Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainViewModel()
         {
             this.WindowTitle = NameTitle.Main.ToString();
@@ -132,6 +169,16 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
             }
             #endregion
+
+            #region コンテンツ作成
+            Dispatcher.CurrentDispatcher.BeginInvoke(
+                new Action(() =>
+                    {
+                        CreateContentsControl();
+                    }
+                )
+            );
+            #endregion
         }
         /// <summary>
         /// 計算処理が実行可能かどうかの判定を行います。
@@ -165,11 +212,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 {
                     File.Move(Constants.WorkRssFileName, Constants.RssFileName);
                 }
-#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 catch (Exception ex)
-#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 {
-                    //log
+                    var ew = new ErrorWriter();
+                    ew.Write(ex);
+                    ew.Message();
+
                     return false;
                 }
                 return true;
@@ -195,22 +243,22 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 var workDataItems = workElementChannel
                                     .Elements(Constants.RssElementItem)
                                     .OrderBy(x =>
-                                        DateTime.Parse(x.Element(Constants.RssElementPubDate).Value.Replace(" JST", "")));
+                                        DateTime.Parse(x.Element(Constants.RssElementPubDate).Value.Replace(" JST", string.Empty)));
 
                 var originDataFirst = originElementChannel
                                         .Elements(Constants.RssElementItem)
                                         .OrderByDescending(x =>
-                                            DateTime.Parse(x.Element(Constants.RssElementPubDate).Value.Replace(" JST", "")))
+                                            DateTime.Parse(x.Element(Constants.RssElementPubDate).Value.Replace(" JST", string.Empty)))
                                         .FirstOrDefault();
 
                 {
                     DateTime? work = null;
-                    DateTime? origin = DateTime.Parse(originDataFirst.Element(Constants.RssElementPubDate).Value.Replace(" JST", ""));
+                    DateTime? origin = DateTime.Parse(originDataFirst.Element(Constants.RssElementPubDate).Value.Replace(" JST", string.Empty));
                     try
                     {
                         foreach (var nowItem in workDataItems)
                         {
-                            work = DateTime.Parse(nowItem.Element(Constants.RssElementPubDate).Value.Replace(" JST", ""));
+                            work = DateTime.Parse(nowItem.Element(Constants.RssElementPubDate).Value.Replace(" JST", string.Empty));
                             switch (work.Value.CompareTo(origin))
                             {
                                 case -1:
@@ -225,12 +273,11 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
                         }
                     }
-#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     catch (Exception ex)
-#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     {
-
-                        throw;
+                        var ew = new ErrorWriter();
+                        ew.Write(ex);
+                        ew.Message();
                     }
                 }
                 #endregion 最新日比較
@@ -243,11 +290,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                     {
                         File.Delete(Constants.WorkRssFileName);
                     }
-#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     catch (Exception ex)
-#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                     {
-                        //log
+                        var ew = new ErrorWriter();
+                        ew.Write(ex);
+                        ew.Message();
+
                         return false;
                     }
                     return true;
@@ -256,10 +304,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
                 return true;
             }
-#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             catch (Exception ex)
-#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             {
+                var ew = new ErrorWriter();
+                ew.Write(ex);
+                ew.Message();
+
                 return false;
             }
             #endregion Check&Save
@@ -301,11 +351,11 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                                 contents: sr.ReadToEnd(),
                                 encoding: Encoding.UTF8);
                         }
-#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                         catch (Exception ex)
-#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                         {
-                            //log
+                            var ew = new ErrorWriter();
+                            ew.Write(ex);
+                            ew.Message();
                         }
                     }
 
@@ -316,10 +366,12 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
                 return true;
             }
-#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             catch (Exception ex)
-#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
             {
+                var ew = new ErrorWriter();
+                ew.Write(ex);
+                ew.Message();
+
                 return false;
             }
         }
@@ -388,7 +440,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                             var result = item.Element(Constants.RssElementPubDate);
                             if (result != null && result.IsEmpty == false)
                             {
-                                DateTime id = DateTime.Parse(item.Element(Constants.RssElementPubDate).Value.Replace(" JST", ""));
+                                DateTime id = DateTime.Parse(item.Element(Constants.RssElementPubDate).Value.Replace(" JST", string.Empty));
                                 work.ID = string.Concat(id.Year.ToString("0000")
                                                         , id.Month.ToString("00")
                                                         , id.Day.ToString("00")
@@ -460,12 +512,11 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                     #endregion check&save
                     DataSource.Add(work);
                 }
-#pragma warning disable CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 catch (Exception ex)
-#pragma warning restore CS0168 // 変数 'ex' は宣言されていますが、使用されていません。
                 {
-                    //log
-                    //不明な行はSkip対応
+                    var ew = new ErrorWriter();
+                    ew.Write(ex);
+                    ew.Message();
                 }
             }
             #endregion クラス化
@@ -479,6 +530,108 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             }
             return true;
             #endregion
+        }
+        #endregion
+
+        #region CreateContentsControl
+        /// <summary>
+        /// CreateContentsControl
+        /// </summary>
+        /// <returns></returns>
+        private bool CreateContentsControl()
+        {
+            var dockAll = new DockPanel
+            {
+                Background = new SolidColorBrush(Colors.Black)
+            };
+            foreach (var item in DataSource.Select((data, count) => new { data, count }))
+            {
+                #region DockPanel定義
+                var dockInLoop = new DockPanel();
+
+                #endregion DockPanel定義
+
+                #region new Button_Detail
+                dockInLoop.Children
+                    .Add(new Button()
+                    {
+                        Content = "Detail"
+                        ,
+                        Width = 100
+                        ,
+                        Height = Constants.DefaultRowHeight
+                        ,
+                        Background = new SolidColorBrush(Colors.White)
+                        ,
+                        Visibility = Visibility.Visible
+                        ,
+                        Tag = item.count
+                    });
+                ((Button)dockInLoop.Children[dockInLoop.Children.Count - 1]).Click += new RoutedEventHandler(btnDetail_Click);
+                #endregion Button_Detail
+
+                #region new RichTextBox
+                dockInLoop.Children
+                    .Add(new RichTextBox()
+                    {
+                        Document = new FlowDocument(
+                                    new Paragraph(
+                                        new Run(
+                                            item.data.Title
+                                                .Replace(Environment.NewLine, string.Empty)
+                                                .Replace(" ", string.Empty)
+                                                .Replace("　", string.Empty))))
+                        ,
+                        //Width = 300
+                        //,
+                        Height = Constants.DefaultRowHeight
+                        ,
+                        Background = new SolidColorBrush(Colors.White)
+                        ,
+                        Visibility = Visibility.Visible
+                        //,
+                        //Margin = new Thickness(0, 0, 397.603, 0)
+                    });
+                #endregion
+
+                #region SetDock
+                DockPanel.SetDock(dockInLoop.Children[0], Dock.Left);
+                //DockPanel.SetDock(dockInLoop.Children[1], Dock.Left);
+                DockPanel.SetDock(dockInLoop, Dock.Top);
+                #endregion SetDock
+
+                dockAll.Children.Add(dockInLoop);
+            }
+
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                ProcessedDataSource = dockAll;
+            }));
+
+            return true;
+        }
+        #endregion CreateContentsControl
+
+        #region btnDetail_Click
+        /// <summary>
+        /// btnDetail_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDetail_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int count = int.Parse(Convert.ToString(((Button)sender).Tag));
+                var row = dataSource[count];
+                System.Diagnostics.Process.Start(@"chrome.exe", row.Link);
+            }
+            catch (Exception ex)
+            {
+                var ew = new ErrorWriter();
+                ew.Write(ex);
+                ew.Message();
+            }
         }
         #endregion
 
