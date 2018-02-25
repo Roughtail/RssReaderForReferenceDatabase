@@ -33,10 +33,7 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <!--<DockPanel Height="31.5" LastChildFill="False" 
-                   VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="3"
-                   WindowChrome.IsHitTestVisibleInChrome="True"
-                   />-->
+        <!--Control群-->
         <Grid Grid.Row="0" Grid.Column="0">
             <Button 
                     HorizontalAlignment="Center"
@@ -87,6 +84,26 @@
             </Button>
         </Grid>
 
+        <Grid Grid.Row="0" Grid.Column="1">
+
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="3">
+            <TextBox x:Name="txtMaxRowCount" 
+                     Text="{Binding Path=MaxRowCount,UpdateSourceTrigger=PropertyChanged}" 
+                     Width="Auto" 
+                     Height="Auto"  
+                     TextAlignment="Right" 
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     HorizontalAlignment="Center"
+                     
+                     />
+        </Grid>
         <!--<Button 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top" Width="Auto" Height="Auto"
@@ -108,15 +125,6 @@
                     Grid.Column="2"
                     Command="{Binding Path=CommandCalculate}"
                     />-->
-        <TextBox x:Name="txtMaxRowCount" 
-                     Text="{Binding Path=MaxRowCount,UpdateSourceTrigger=PropertyChanged}" 
-                     Width="55" 
-                     Height="31.5"  
-                     Grid.Column="3"
-                     TextAlignment="Right" 
-                     VerticalAlignment="Center"
-                     VerticalContentAlignment="Bottom"
-                     />
 
         <!--<DataGrid ItemsSource="{Binding Path=DataSource}" 
                     Height="Auto" 
