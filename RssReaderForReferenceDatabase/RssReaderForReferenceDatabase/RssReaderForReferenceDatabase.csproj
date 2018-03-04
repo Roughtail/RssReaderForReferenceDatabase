@@ -130,9 +130,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="000_Documents\" />
     <Folder Include="005_Model\" />
     <Folder Include="030_Interface\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="000_Documents\000_Image\ImageTitle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="000_Documents\000_Image\ImageMain.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
