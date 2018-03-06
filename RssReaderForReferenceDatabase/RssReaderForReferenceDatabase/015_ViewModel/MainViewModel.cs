@@ -71,7 +71,14 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         }
         #endregion
 
+        #region MaxRowCount
+        /// <summary>
+        /// maxRowCount
+        /// </summary>
         private int maxRowCount = 30;
+        /// <summary>
+        /// MaxRowCount
+        /// </summary>
         public int MaxRowCount
         {
             get
@@ -85,8 +92,16 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged("MaxRowCount");
             }
         }
+        #endregion
 
+        #region NewLine
+        /// <summary>
+        /// newLine
+        /// </summary>
         private bool newLine = true;
+        /// <summary>
+        /// NewLine
+        /// </summary>
         public bool NewLine
         {
             get
@@ -100,6 +115,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged("NewLine");
             }
         }
+        #endregion
         #endregion Field
 
         #region Constructor
@@ -135,13 +151,36 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 if (this.commandCalculate == null)
                 {
                     this.commandCalculate
-                        = new DelegateCommand(acquisitionExecute, CanAcquisitionExecute);
+                        = new DelegateCommand(AcquisitionExecute, CanAcquisitionExecute);
                 }
 
                 return this.commandCalculate;
             }
         }
         #endregion CommandCalculate
+
+        #region CommandShowDataYouGot
+        /// <summary>
+        /// commandShowDataYouGot
+        /// </summary>
+        private DelegateCommand commandShowDataYouGot { get; set; }
+        /// <summary>
+        /// CommandShowDataYouGot
+        /// </summary>
+        public DelegateCommand CommandShowDataYouGot
+        {
+            get
+            {
+                if (this.commandCalculate == null)
+                {
+                    this.commandCalculate
+                        = new DelegateCommand(AcquisitionExecute, CanAcquisitionExecute);
+                }
+
+                return this.commandCalculate;
+            }
+        }
+        #endregion
 
         #endregion Command
 
@@ -150,7 +189,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         /// <summary>
         /// 計算処理のコマンドの実行を行います。
         /// </summary>
-        private void acquisitionExecute()
+        private void AcquisitionExecute()
         {
             #region データ取得
             //負荷対策
@@ -185,6 +224,37 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         /// </summary>
         /// <returns></returns>
         private bool CanAcquisitionExecute()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// 表示処理のコマンドの実行を行います。
+        /// </summary>
+        private void ShowingExecute()
+        {
+            #region データ加工
+            if (CheckAndProcessRss() == false)
+            {
+
+            }
+            #endregion
+
+            #region コンテンツ作成
+            Dispatcher.CurrentDispatcher.BeginInvoke(
+                new Action(() =>
+                {
+                    CreateContentsControl();
+                }
+                )
+            );
+            #endregion
+        }
+        /// <summary>
+        /// 表示処理が実行可能かどうかの判定を行います。
+        /// </summary>
+        /// <returns></returns>
+        private bool CanShowingExecute()
         {
             return true;
         }
