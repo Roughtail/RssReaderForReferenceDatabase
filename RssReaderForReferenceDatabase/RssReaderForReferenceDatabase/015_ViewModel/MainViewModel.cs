@@ -171,13 +171,13 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         {
             get
             {
-                if (this.commandCalculate == null)
+                if (this.commandShowDataYouGot == null)
                 {
-                    this.commandCalculate
-                        = new DelegateCommand(AcquisitionExecute, CanAcquisitionExecute);
+                    this.commandShowDataYouGot
+                        = new DelegateCommand(ShowingExecute, CanShowingExecute);
                 }
 
-                return this.commandCalculate;
+                return this.commandShowDataYouGot;
             }
         }
         #endregion
