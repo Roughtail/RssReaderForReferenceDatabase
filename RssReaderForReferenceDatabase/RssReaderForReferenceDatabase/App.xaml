@@ -20,11 +20,11 @@
             <Setter Property="Command" Value="{Binding CommandDispatching}"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate>
+                    <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="0.8*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.Style>
                                 <Style TargetType="Grid">
@@ -36,12 +36,33 @@
                                 </Style>
                             </Grid.Style>
 
+                            <!--Grid.Column="0"-->
+                            <!--Icon[Config]-->
+                            <Ellipse Fill="Orange" Grid.Column="0"
+                                     Height="120" 
+                                     Stroke="Black" 
+                                     HorizontalAlignment="Stretch" 
+                                     VerticalAlignment="Stretch" 
+                                     Width="120"
+                                     />
+
+                            <!--Grid.Column="1"-->
+                            <TextBlock Grid.Column="1"
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"
+                                       Foreground="White"
+                                       TextAlignment="Center"
+                                       FontSize="14"
+                                       Margin="10"
+                                       >
+                                <ContentPresenter/>
+                            </TextBlock>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <!--/CaptionButtonStyleKey
         
         -->

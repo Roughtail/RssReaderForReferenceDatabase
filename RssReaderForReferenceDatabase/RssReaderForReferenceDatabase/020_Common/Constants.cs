@@ -46,7 +46,7 @@ namespace RssReaderForReferenceDatabase._020_Common
         public const string SystemMessageGetRssError = @"何らかのエラーが発生している可能性があります。
                                                         しばらくこのメッセージが出続けている場合、アプリ提供者への連絡をお勧めします。
                                                         このメッセージは{0}回表示されました。";
-
+        public const string SystemMessageNotExistFileError = "Fileが存在しません。";
         public const string SystemMessageNotifyError = @"エラーが発生しました。ログファイルに情報を記載しました。";
 
         public const ulong RequiredStrage = 10000000;

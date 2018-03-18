@@ -44,7 +44,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             set
             {
                 this.dataSource = value;
-                this.RaisePropertyChanged("DataSource");
+                this.RaisePropertyChanged(nameof(DataSource));
             }
         }
         #endregion
@@ -66,7 +66,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             set
             {
                 this.processedDataSource = value;
-                this.RaisePropertyChanged("ProcessedDataSource");
+                this.RaisePropertyChanged(nameof(ProcessedDataSource));
             }
         }
         #endregion
@@ -89,7 +89,29 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             set
             {
                 this.maxRowCount = value;
-                this.RaisePropertyChanged("MaxRowCount");
+                this.RaisePropertyChanged(nameof(MaxRowCount));
+            }
+        }
+        #endregion
+
+        #region NowBlock
+        /// <summary>
+        /// NowBlock
+        /// </summary>
+        private int nowBlock = 0;
+        /// <summary>
+        /// NowBlock
+        /// </summary>
+        public int NowBlock
+        {
+            get
+            {
+                return this.nowBlock;
+            }
+            set
+            {
+                this.nowBlock = value;
+                this.RaisePropertyChanged(nameof(NowBlock));
             }
         }
         #endregion
@@ -112,10 +134,33 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             set
             {
                 this.newLine = value;
-                this.RaisePropertyChanged("NewLine");
+                this.RaisePropertyChanged(nameof(NewLine));
             }
         }
         #endregion
+
+        #region DisplayedData
+        /// <summary>
+        /// displayedData
+        /// </summary>
+        private bool displayedData = false;
+        /// <summary>
+        /// DisplayedData
+        /// </summary>
+        public bool DisplayedData
+        {
+            get
+            {
+                return this.displayedData;
+            }
+            set
+            {
+                this.displayedData = value;
+                this.RaisePropertyChanged(nameof(DisplayedData));
+            }
+        }
+        #endregion
+
         #endregion Field
 
         #region Constructor
@@ -136,34 +181,34 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
         #region Command
 
-        #region CommandCalculate
+        #region CommandGetAndShow
         /// <summary>
-        /// calculateCommand
+        /// _commandGetAndShow
         /// </summary>
-        private DelegateCommand commandCalculate;
+        private DelegateCommand _commandGetAndShow;
         /// <summary>
-        /// calculateCommand
+        /// CommandGetAndShow
         /// </summary>
-        public DelegateCommand CommandCalculate
+        public DelegateCommand CommandGetAndShow
         {
             get
             {
-                if (this.commandCalculate == null)
+                if (this._commandGetAndShow == null)
                 {
-                    this.commandCalculate
+                    this._commandGetAndShow
                         = new DelegateCommand(AcquisitionExecute, CanAcquisitionExecute);
                 }
 
-                return this.commandCalculate;
+                return this._commandGetAndShow;
             }
         }
-        #endregion CommandCalculate
+        #endregion CommandGetAndShow
 
         #region CommandShowDataYouGot
         /// <summary>
-        /// commandShowDataYouGot
+        /// _commandShowDataYouGot
         /// </summary>
-        private DelegateCommand commandShowDataYouGot { get; set; }
+        private DelegateCommand _commandShowDataYouGot { get; set; }
         /// <summary>
         /// CommandShowDataYouGot
         /// </summary>
@@ -171,13 +216,82 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         {
             get
             {
-                if (this.commandShowDataYouGot == null)
+                if (this._commandShowDataYouGot == null)
                 {
-                    this.commandShowDataYouGot
+                    this._commandShowDataYouGot
                         = new DelegateCommand(ShowingExecute, CanShowingExecute);
                 }
 
-                return this.commandShowDataYouGot;
+                return this._commandShowDataYouGot;
+            }
+        }
+        #endregion
+
+        #region CommandShowDataNext
+        /// <summary>
+        /// _commandShowDataNext
+        /// </summary>
+        private DelegateCommand _commandShowDataNext { get; set; }
+        /// <summary>
+        /// CommandShowDataNext
+        /// </summary>
+        public DelegateCommand CommandShowDataNext
+        {
+            get
+            {
+                if (this._commandShowDataNext == null)
+                {
+                    this._commandShowDataNext
+                        = new DelegateCommand(ReadingNextExecute, CanReadingNextExecute);
+                }
+
+                return this._commandShowDataNext;
+            }
+        }
+        #endregion
+
+        #region CommandShowDataPrev
+        /// <summary>
+        /// _commandShowDataPrev
+        /// </summary>
+        private DelegateCommand _commandShowDataPrev { get; set; }
+        /// <summary>
+        /// CommandShowDataPrev
+        /// </summary>
+        public DelegateCommand CommandShowDataPrev
+        {
+            get
+            {
+                if (this._commandShowDataPrev == null)
+                {
+                    this._commandShowDataPrev
+                        = new DelegateCommand(ReadingPrevExecute, CanReadingPrevExecute);
+                }
+
+                return this._commandShowDataPrev;
+            }
+        }
+        #endregion
+
+        #region CommandClearData
+        /// <summary>
+        /// _commandClearData
+        /// </summary>
+        private DelegateCommand _commandClearData { get; set; }
+        /// <summary>
+        /// CommandShowDataNext
+        /// </summary>
+        public DelegateCommand CommandClearData
+        {
+            get
+            {
+                if (this._commandClearData == null)
+                {
+                    this._commandClearData
+                        = new DelegateCommand(ClearingExecute, CanClearingExecute);
+                }
+
+                return this._commandClearData;
             }
         }
         #endregion
@@ -186,6 +300,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
 
         #region Local Method
 
+        #region AcquisitionExecute
         /// <summary>
         /// 計算処理のコマンドの実行を行います。
         /// </summary>
@@ -199,13 +314,15 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 {
 
                 }
+
+                ClearBlockNumber();
             }
             #endregion
 
             #region データ加工
             if (CheckAndProcessRss() == false)
             {
-
+                return;
             }
             #endregion
 
@@ -218,6 +335,8 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 )
             );
             #endregion
+
+            this.displayedData = true;
         }
         /// <summary>
         /// 計算処理が実行可能かどうかの判定を行います。
@@ -227,7 +346,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         {
             return true;
         }
+        #endregion
 
+        #region ShowingExecute
         /// <summary>
         /// 表示処理のコマンドの実行を行います。
         /// </summary>
@@ -236,12 +357,58 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             #region データ加工
             if (CheckAndProcessRss() == false)
             {
-
+                return;
             }
             #endregion
 
             #region コンテンツ作成
-            Dispatcher.CurrentDispatcher.BeginInvoke(
+            Dispatcher.CurrentDispatcher.BeginInvoke
+            (
+                new Action(() =>
+                {
+                    CreateContentsControl();
+                }
+                )
+            );
+            #endregion
+
+            this.displayedData = true;
+        }
+        /// <summary>
+        /// 表示処理が実行可能かどうかの判定を行います。
+        /// </summary>
+        /// <returns></returns>
+        private bool CanShowingExecute()
+        {
+            if (this.displayedData == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region ReadingNextExecute
+        /// <summary>
+        /// X件分の次のデータ読み込みを行います。
+        /// </summary>
+        private void ReadingNextExecute()
+        {
+            nowBlock += maxRowCount;
+
+            #region データ加工
+            if (CheckAndProcessRss() == false)
+            {
+                return;
+            }
+            #endregion
+
+            #region コンテンツ作成
+            Dispatcher.CurrentDispatcher.BeginInvoke
+            (
                 new Action(() =>
                 {
                     CreateContentsControl();
@@ -251,13 +418,84 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             #endregion
         }
         /// <summary>
-        /// 表示処理が実行可能かどうかの判定を行います。
+        /// X件分の次のデータ読み込みが可能か判定を行います。
         /// </summary>
         /// <returns></returns>
-        private bool CanShowingExecute()
+        private bool CanReadingNextExecute()
+        {
+            if (DisplayedData == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region ReadingPrevExecute
+        /// <summary>
+        /// X件分の前のデータ読み込みを行います。
+        /// </summary>
+        private void ReadingPrevExecute()
+        {
+            NowBlock -= MaxRowCount;
+
+            #region データ加工
+            if (CheckAndProcessRss() == false)
+            {
+                return;
+            }
+            #endregion
+
+            #region コンテンツ作成
+            Dispatcher.CurrentDispatcher.BeginInvoke
+            (
+                new Action(() =>
+                {
+                    CreateContentsControl();
+                }
+                )
+            );
+            #endregion
+        }
+        /// <summary>
+        /// X件分の前のデータ読み込みが可能か判定を行います。
+        /// </summary>
+        /// <returns></returns>
+        private bool CanReadingPrevExecute()
+        {
+            if (nowBlock >= maxRowCount)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region ClearingExecute
+        /// <summary>
+        /// 表示されているデータの消滅処理を行います。
+        /// </summary>
+        private void ClearingExecute()
+        {
+            ProcessedDataSource = null;
+            ClearBlockNumber();
+            displayedData = false;
+        }
+        /// <summary>
+        /// 表示されているデータの消滅処理が可能か判定を行います。
+        /// </summary>
+        /// <returns></returns>
+        private bool CanClearingExecute()
         {
             return true;
         }
+        #endregion
 
         #region UpdateRssData
         /// <summary>
@@ -457,7 +695,10 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             #region ファイル存在チェック
             if (File.Exists(Constants.RssFileName) == false)
             {
-                //log
+                var ew = new ErrorWriter();
+                ew.Write(new Exception(Constants.SystemMessageNotExistFileError));
+                ew.Message();
+
                 return false;
             }
             #endregion
@@ -497,6 +738,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             #region クラス化
             foreach (var item in elementChannel
                 .Reverse()
+                .Skip(nowBlock)
                 .Take(getAmount)
                 )
             {
@@ -598,6 +840,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             {
                 return false;
             }
+
             return true;
             #endregion
         }
@@ -705,8 +948,17 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         }
         #endregion
 
+        #region ClearBlockNumber
+        /// <summary>
+        /// ClearBlockNumber
+        /// </summary>
+        private void ClearBlockNumber()
+        {
+            nowBlock = 0;
+        }
+        #endregion
+
+
         #endregion Local Method
-
-
     }
 }

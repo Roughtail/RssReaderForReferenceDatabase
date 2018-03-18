@@ -32,162 +32,154 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <!--Control群-->
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Button 
+        <ScrollViewer
+            CanContentScroll="True" 
+            Foreground="Black"
+            Grid.Row="0" 
+            Grid.RowSpan="2" 
+            Grid.ColumnSpan="5" 
+            >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Button 
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch" 
-                    Command="{Binding CommandCalculate}"
+                    Command="{Binding CommandGetAndShow}"
+                    Style="{Binding Source={StaticResource IconButton}}"
                     >
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="0.8*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Background" Value="Red"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
-
-                            <!--Grid.Column="0"-->
-                            <!--Icon[Config]-->
-                            <Ellipse Fill="Orange" Grid.Column="0"
-                                     Height="120" 
-                                     Stroke="Black" 
-                                     HorizontalAlignment="Stretch" 
-                                     VerticalAlignment="Stretch" 
-                                     Width="120"
-                                     />
-
-                            <!--Grid.Column="1"-->
-                            <TextBlock Grid.Column="1"
-                                       TextWrapping="Wrap"
-                                       VerticalAlignment="Center"
-                                       Foreground="White"
-                                       TextAlignment="Center"
-                                       FontSize="14"
-                                       Margin="10"
-                                       >
-                                <Run Text="G" FontSize="24" />etData
+                        <Button.Content>
+                            <TextBlock 
+                                    Foreground="White"
+                                    TextAlignment="Center"
+                                    FontSize="14"
+                                    TextWrapping="Wrap"
+                                >
+                                <Run FontSize="24">G</Run>etData
                             </TextBlock>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Grid>
+                        </Button.Content>
+                    </Button>
+                </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="1">
-            <Button 
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Button 
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch" 
                     Command="{Binding CommandShowDataYouGot}"
+                    Style="{Binding Source={StaticResource IconButton}}"
                     >
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="0.8*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Background" Value="Red"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
-
-                            <!--Grid.Column="0"-->
-                            <!--Icon[Config]-->
-                            <Ellipse Fill="Orange" Grid.Column="0"
-                                     Height="120" 
-                                     Stroke="Black" 
-                                     HorizontalAlignment="Stretch" 
-                                     VerticalAlignment="Stretch" 
-                                     Width="120"
-                                     />
-
-                            <!--Grid.Column="1"-->
-                            <TextBlock Grid.Column="1"
-                                       TextWrapping="Wrap"
-                                       VerticalAlignment="Center"
-                                       Foreground="White"
-                                       TextAlignment="Center"
-                                       FontSize="14"
-                                       Margin="10"
-                                       >
+                        <Button.Content>
+                            <TextBlock 
+                                    Foreground="White"
+                                    TextAlignment="Center"
+                                    FontSize="14"
+                                    TextWrapping="Wrap"
+                                >
                                 <Run Text="S" FontSize="24" />howed data you got
                             </TextBlock>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Grid>
+                        </Button.Content>
+                    </Button>
+                </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="2">
+                <Grid Grid.Row="0" Grid.Column="2">
+                    <Button 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    Command="{Binding CommandShowDataNext}"
+                    Style="{Binding Source={StaticResource IconButton}}"
+                    >
+                        <Button.Content>
+                            <TextBlock 
+                                    Foreground="White"
+                                    TextAlignment="Center"
+                                    FontSize="14"
+                                    TextWrapping="Wrap"
+                                >
+                                <Run Text="N" FontSize="24" />ext
+                            </TextBlock>
+                        </Button.Content>
+                    </Button>
+                </Grid>
 
-        </Grid>
+                <Grid Grid.Row="0" Grid.Column="3">
+                    <Button 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    Command="{Binding CommandShowDataPrev}"
+                    Style="{Binding Source={StaticResource IconButton}}"
+                    >
+                        <Button.Content>
+                            <TextBlock 
+                                    Foreground="White"
+                                    TextAlignment="Center"
+                                    FontSize="14"
+                                    TextWrapping="Wrap"
+                                >
+                                <Run Text="P" FontSize="24" />rev
+                            </TextBlock>
+                        </Button.Content>
+                    </Button>
+                </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="3">
-            <TextBox x:Name="txtMaxRowCount" 
-                     Text="{Binding Path=MaxRowCount,UpdateSourceTrigger=PropertyChanged}" 
-                     Width="Auto" 
-                     Height="Auto"  
-                     TextAlignment="Right" 
-                     VerticalAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     HorizontalAlignment="Center"
+                <Grid Grid.Row="0" Grid.Column="4">
+                    <TextBox x:Name="txtMaxRowCount" 
+                             Text="{Binding Path=MaxRowCount,UpdateSourceTrigger=PropertyChanged}" 
+                             Width="Auto" 
+                             Height="Auto"  
+                             TextAlignment="Right" 
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalAlignment="Center"
                      
-                     />
-        </Grid>
-        <!--<Button 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top" Width="Auto" Height="Auto"
-                    Grid.Column="0"
-                    Command="{Binding Path=CommandCalculate}"
-                    x:Name="btnGetData"
-                    />
-        <Button x:Name="btnNext"
-                    Content="btnGetData" 
-                    Width="Auto" 
-                    Height="Auto"
-                    Grid.Column="1"
-                    Command="{Binding Path=CommandCalculate}"
-                    />
-        <Button x:Name="btnPrev"
-                    Content="btnGetData" 
-                    Width="55" 
-                    Height="31.5"
-                    Grid.Column="2"
-                    Command="{Binding Path=CommandCalculate}"
-                    />-->
+                             />
+                </Grid>
 
-        <!--<DataGrid ItemsSource="{Binding Path=DataSource}" 
-                    Height="Auto" 
-                    Grid.Row="1" 
-                    Grid.RowSpan="8" 
-                    Grid.ColumnSpan="4" 
-                    />-->
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <Button 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    Command="{Binding CommandClearData}"
+                    Style="{Binding Source={StaticResource IconButton}}"
+                    >
+                        <Button.Content>
+                            <TextBlock 
+                                    Foreground="White"
+                                    TextAlignment="Center"
+                                    FontSize="14"
+                                    TextWrapping="Wrap"
+                                >
+                                <Run Text="C" FontSize="24" />lear
+                            </TextBlock>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
         <ScrollViewer 
             CanContentScroll="True" 
             Foreground="Black"
-            Grid.Row="1" 
-            Grid.RowSpan="8" 
+            Grid.Row="2" 
+            Grid.RowSpan="9" 
             Grid.ColumnSpan="5" 
             Content="{Binding ProcessedDataSource}"
             >
         </ScrollViewer>
-
     </Grid>
 </Window>
