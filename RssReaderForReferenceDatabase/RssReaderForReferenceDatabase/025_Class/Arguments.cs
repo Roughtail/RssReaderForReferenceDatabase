@@ -6,6 +6,21 @@
 namespace RssReaderForReferenceDatabase._025_Class
 {
     /// <summary>
+    /// ArgumentsCommonProcessTarget
+    /// </summary>
+    public class ArgumentsCommonProcessTarget
+    {
+        /// <summary>
+        /// NameProcess
+        /// </summary>
+        public NameCommonProcess NameCommonProcess;
+        /// <summary>
+        /// Data
+        /// </summary>
+        public object Data;
+    }
+
+    /// <summary>
     /// ArgumentsForTeleportManager
     /// </summary>
     public class ArgumentsForTeleportManager
@@ -21,17 +36,13 @@ namespace RssReaderForReferenceDatabase._025_Class
     }
 
     /// <summary>
-    /// ArgumentsCommonProcessTarget
+    /// ArgumentsOparateNumber
     /// </summary>
-    public class ArgumentsCommonProcessTarget
+    public class ArgumentsOparateNumber
     {
         /// <summary>
-        /// NameProcess
+        /// NameControl
         /// </summary>
-        public NameCommonProcess NameCommonProcess;
-        /// <summary>
-        /// Data
-        /// </summary>
-        public object Data;
+        public string NameControl { get; set; }
     }
 }

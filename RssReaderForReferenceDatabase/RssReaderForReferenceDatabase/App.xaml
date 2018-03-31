@@ -4,13 +4,14 @@
              xmlns:mscorlib="clr-namespace:System;assembly=mscorlib"
              xmlns:convert="clr-namespace:RssReaderForReferenceDatabase._025_Class"
              xmlns:enum="clr-namespace:RssReaderForReferenceDatabase._035_Enum"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
              Startup="Application_Startup"
              Exit="Application_Exit"
              >
     <Application.Resources>
 
         <!--/IconButton
-        
+            Default button.
         -->
         <Style x:Key="IconButton" TargetType="{x:Type Button}">
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
@@ -131,7 +132,7 @@
         </Style>
 
         <!--/DefaultWindowStyle
-        
+            All forms must deploy this style.
         -->
         <Style x:Key="DefaultWindowStyle" TargetType="Window">
             <!--メトロスタイルアプリ推奨解像度-->
@@ -289,6 +290,163 @@
                                 </Grid>
                             </Grid>
                         </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--/DefaultCounter
+        
+        -->
+        <Style x:Key="DefaultCounter" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" Value="Red"/>
+                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="false">
+                                                    <Setter Property="BorderBrush" Value="Black"/>
+                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ed:LineArrow
+                                            Grid.Column="0"
+                                            Fill="#FFF4F4F5" 
+                                            Stroke="Red"
+                                            RenderTransformOrigin="0.5,0.5" 
+                                            >
+                                            <ed:LineArrow.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <RotateTransform Angle="180"/>
+                                                </TransformGroup>
+                                            </ed:LineArrow.RenderTransform>
+                                        </ed:LineArrow>
+                                        <TextBlock 
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="Wheat"
+                                            >
+                                            <Run Text="G" FontSize="24" /><Run Text="ain"/>
+                                        </TextBlock>
+                                        <Grid.Resources>
+                                            <convert:ArrayConverterOperateNumber x:Key="ArrayConverterOperateNumber"/>
+                                        </Grid.Resources>
+                                        <Grid.InputBindings>
+                                            <MouseBinding Command="{Binding CommandDispatching}"
+                                                          MouseAction="LeftClick">
+                                                <MouseBinding.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource ArrayConverterOperateNumber}">
+                                                        <Binding Source="{x:Static enum:NameCommonProcess.GainNumber}"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, 
+                                                                                AncestorType={x:Type TextBox}}"
+                                                                            Path="Name"/>
+                                                    </MultiBinding>
+                                                </MouseBinding.CommandParameter>
+                                            </MouseBinding>
+                                        </Grid.InputBindings>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+
+                            <!--
+                                I assume to using more than once.
+                                So the TextProperty see the ancestor.
+                            -->
+                            <TextBox
+                                Grid.Row="1"
+                                Background="AliceBlue"
+                                Width="Auto" 
+                                Height="Auto"  
+                                TextAlignment="Right" 
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                FontStyle="Italic"
+                                Text="{Binding RelativeSource=
+                                        {RelativeSource FindAncestor
+                                                        ,AncestorType={x:Type TextBox}
+                                        },Path=Text 
+                                        ,UpdateSourceTrigger=PropertyChanged}"
+                                >
+                            </TextBox>
+
+                            <Grid Grid.Row="2" Margin="0,0,0,10">
+                                <Border>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" Value="Red"/>
+                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="false">
+                                                    <Setter Property="BorderBrush" Value="Black"/>
+                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ed:LineArrow
+                                            Grid.Column="0"
+                                            Fill="#FFF4F4F5" 
+                                            Stroke="Aqua" />
+                                        <TextBlock 
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Foreground="Wheat"
+                                            >
+                                            <Run Text="L" FontSize="24" /><Run Text="ose"/>
+                                        </TextBlock>
+                                        <Grid.Resources>
+                                            <convert:ArrayConverterOperateNumber x:Key="ArrayConverterOperateNumber"/>
+                                        </Grid.Resources>
+                                        <Grid.InputBindings>
+                                            <MouseBinding Command="{Binding CommandDispatching}"
+                                                          MouseAction="LeftClick">
+                                                <MouseBinding.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource ArrayConverterOperateNumber}">
+                                                        <Binding Source="{x:Static enum:NameCommonProcess.LoseNumber}"/>
+                                                        <Binding RelativeSource="{RelativeSource FindAncestor, 
+                                                                                AncestorType={x:Type TextBox}}"
+                                                                            Path="Name"/>
+                                                    </MultiBinding>
+                                                </MouseBinding.CommandParameter>
+                                            </MouseBinding>
+                                        </Grid.InputBindings>
+
+                                    </Grid>
+                                </Border>
+                            </Grid>
+
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

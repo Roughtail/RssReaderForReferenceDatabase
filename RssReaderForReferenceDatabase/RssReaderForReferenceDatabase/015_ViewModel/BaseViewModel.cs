@@ -16,9 +16,21 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
     public class BaseViewModel
         : INotifyPropertyChanged
     {
+        #region Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public BaseViewModel()
+        {
+
+        }
+        #endregion
+
         #region Field
 
-        #region DataSource
+        #region Property
+
+        #region EntityViewTitleHierarchy
         /// <summary>
         /// パン屑リストにて使用
         /// </summary>
@@ -44,10 +56,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged(nameof(TitleList));
             }
         }
-        #endregion DataSource
+        #endregion
 
-        #region Property
-
+        #region WindowTitle
         /// <summary>
         /// windowTitle
         /// </summary>
@@ -68,6 +79,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                 this.RaisePropertyChanged(nameof(WindowTitle));
             }
         }
+        #endregion
 
         #region FlagBehaviorClose
         /// <summary>
@@ -116,29 +128,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         }
         #endregion
 
-        //#region CommandJumpForOtherForm
-        ///// <summary>
-        ///// commandJumpForOtherForm
-        ///// </summary>
-        //private DelegateCommandJenerics<NameTitle> commandJumpForOtherForm;
-        ///// <summary>
-        ///// CommandJumpForOtherForm
-        ///// </summary>
-        //public DelegateCommandJenerics<NameTitle> CommandJumpForOtherForm
-        //{
-        //    get
-        //    {
-        //        if (commandJumpForOtherForm == null)
-        //        {
-        //            commandJumpForOtherForm =
-        //                new DelegateCommandJenerics<NameTitle>(WalkForNearForm, CanWalkForNearForm);
-        //        }
+        #endregion Property
 
-        //        return commandJumpForOtherForm;
-        //    }
-        //    set { commandJumpForOtherForm = value; }
-        //}
-        //#endregion
+        #region Member
 
         #region Event
         /// <summary>
@@ -147,7 +139,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion Event
 
-        #endregion Property
+        #endregion Member
 
         #endregion Field
 
@@ -268,6 +260,8 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
                     break;
 
                 case NameCommonProcess.DoNothing:
+                    break;
+
                 default:
                     break;
             }
@@ -285,6 +279,5 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         #endregion
 
         #endregion Method
-
     }
 }

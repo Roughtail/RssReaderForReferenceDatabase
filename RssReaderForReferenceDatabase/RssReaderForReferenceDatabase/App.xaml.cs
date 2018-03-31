@@ -47,22 +47,6 @@ namespace RssReaderForReferenceDatabase
         {
             try
             {
-
-#if DEBUG == false
-            //memo
-            //Mutex のコンストラクタに指定する文字列は、他のアプリケーションと重複するとそれらの起動チェックに影響するので GUID を指定する。重複回避としては GUID で十分だけど、私は念のためにアプリ名も入れておく。
-//Visual Studio のインストール フォルダを $ とすると “$\Common7\Tools” というフォルダに guidgen.exe という名前のツールがあり、これで GUID を生成できる。
-//Mutex を検出したときは先に起動しているアプリがあるので、すぐにプロセスを終了する。このチェックを通過したなら、メインウィンドウを表示する。
-
-            globalVoMutex = new Mutex(false, "");
-            if (globalVoMutex.WaitOne(0,false) == false)
-            {
-                globalVoMutex.Dispose();
-                this.Shutdown();
-                return;
-            }
-#endif
-
                 if (IsArgument(e: e) == true)
                 {
                     ProcessArgument(e);

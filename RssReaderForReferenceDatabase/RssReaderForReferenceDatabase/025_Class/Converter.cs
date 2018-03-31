@@ -86,7 +86,7 @@ namespace RssReaderForReferenceDatabase._025_Class
             //{
             //    aa = ((EntityViewTitleHierarchy)values[0]).NameTitle;
             //}
-            if(values[0] is NameTitle)
+            if (values[0] is NameTitle)
             {
                 aa = (NameTitle)values[0];
             }
@@ -150,6 +150,53 @@ namespace RssReaderForReferenceDatabase._025_Class
             {
                 NameCommonProcess = NameCommonProcess.CloseForm,
                 Data = null
+            };
+
+            return package;
+        }
+        #endregion
+
+        #region IMultiValueConverter.ConvertBack
+        /// <summary>
+        /// 使用想定せず
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetTypes"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// ArrayConverterOperateNumber
+    /// </summary>
+    class ArrayConverterOperateNumber : IMultiValueConverter
+    {
+        #region IMultiValueConverter.Convert
+        /// <summary>
+        /// IMultiValueConverter.Convert
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            var package = new ArgumentsCommonProcessTarget();
+            if (values[0] is NameCommonProcess)
+            {
+                package.NameCommonProcess = (NameCommonProcess)values[0];
+            }
+
+            package.Data = new ArgumentsOparateNumber
+            {
+                NameControl = Convert.ToString(values[1])
             };
 
             return package;

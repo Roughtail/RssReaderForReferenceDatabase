@@ -1,10 +1,12 @@
-﻿<Window x:Class="RssReaderForReferenceDatabase._010_View.Main"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:RssReaderForReferenceDatabase._015_ViewModel"
         xmlns:BehaviorClass="clr-namespace:RssReaderForReferenceDatabase._025_Class"
+        xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" 
+        x:Class="RssReaderForReferenceDatabase._010_View.Main"
         mc:Ignorable="d"
         Title="Main"
         Style="{Binding Source={StaticResource DefaultWindowStyle}}"
@@ -51,6 +53,8 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
@@ -59,114 +63,81 @@
 
                 <Grid Grid.Row="0" Grid.Column="0">
                     <Button 
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" 
-                    Command="{Binding CommandGetAndShow}"
-                    Style="{Binding Source={StaticResource IconButton}}"
+                        Command="{Binding CommandGetAndShow}"
+                        Style="{Binding Source={StaticResource IconButton}}"
                     >
-                        <Button.Content>
-                            <TextBlock 
+                        <TextBlock 
                                     Foreground="White"
                                     TextAlignment="Center"
                                     FontSize="14"
                                     TextWrapping="Wrap"
-                                >
-                                <Run FontSize="24">G</Run>etData
-                            </TextBlock>
-                        </Button.Content>
+                                ><Run FontSize="24" Text="G"/><Run Text="etData"/></TextBlock>
                     </Button>
                 </Grid>
 
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Button 
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" 
                     Command="{Binding CommandShowDataYouGot}"
                     Style="{Binding Source={StaticResource IconButton}}"
                     >
-                        <Button.Content>
-                            <TextBlock 
+                        <TextBlock 
                                     Foreground="White"
                                     TextAlignment="Center"
                                     FontSize="14"
                                     TextWrapping="Wrap"
-                                >
-                                <Run Text="S" FontSize="24" />howed data you got
-                            </TextBlock>
-                        </Button.Content>
+                                ><Run Text="S" FontSize="24" /><Run Text="howed data you got"/></TextBlock>
                     </Button>
                 </Grid>
 
                 <Grid Grid.Row="0" Grid.Column="2">
                     <Button 
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" 
                     Command="{Binding CommandShowDataNext}"
                     Style="{Binding Source={StaticResource IconButton}}"
                     >
-                        <Button.Content>
-                            <TextBlock 
+                        <TextBlock 
                                     Foreground="White"
                                     TextAlignment="Center"
                                     FontSize="14"
                                     TextWrapping="Wrap"
-                                >
-                                <Run Text="N" FontSize="24" />ext
-                            </TextBlock>
-                        </Button.Content>
+                                ><Run Text="N" FontSize="24" /><Run Text="ext"/></TextBlock>
                     </Button>
                 </Grid>
 
                 <Grid Grid.Row="0" Grid.Column="3">
                     <Button 
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" 
                     Command="{Binding CommandShowDataPrev}"
                     Style="{Binding Source={StaticResource IconButton}}"
                     >
-                        <Button.Content>
-                            <TextBlock 
+                        <TextBlock 
                                     Foreground="White"
                                     TextAlignment="Center"
                                     FontSize="14"
                                     TextWrapping="Wrap"
-                                >
-                                <Run Text="P" FontSize="24" />rev
-                            </TextBlock>
-                        </Button.Content>
+                                ><Run Text="P" FontSize="24" /><Run Text="rev"/></TextBlock>
                     </Button>
                 </Grid>
 
                 <Grid Grid.Row="0" Grid.Column="4">
-                    <TextBox x:Name="txtMaxRowCount" 
-                             Text="{Binding Path=MaxRowCount,UpdateSourceTrigger=PropertyChanged}" 
-                             Width="Auto" 
-                             Height="Auto"  
-                             TextAlignment="Right" 
-                             VerticalAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             HorizontalAlignment="Center"
-                     
-                             />
+                    <TextBox 
+                        x:Name="MaxRowCount"
+                        Text="{Binding MaxRowCount, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{Binding Source={StaticResource DefaultCounter}}"
+                    />
                 </Grid>
 
                 <Grid Grid.Row="1" Grid.Column="0">
                     <Button 
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" 
                     Command="{Binding CommandClearData}"
                     Style="{Binding Source={StaticResource IconButton}}"
                     >
-                        <Button.Content>
-                            <TextBlock 
-                                    Foreground="White"
-                                    TextAlignment="Center"
-                                    FontSize="14"
-                                    TextWrapping="Wrap"
-                                >
-                                <Run Text="C" FontSize="24" />lear
-                            </TextBlock>
-                        </Button.Content>
+                        <TextBlock 
+                            Foreground="White"
+                            TextAlignment="Center"
+                            FontSize="14"
+                            TextWrapping="Wrap"
+                        >
+                            <Run Text="C" FontSize="24" /><Run Text="lear"/>
+                        </TextBlock>
                     </Button>
                 </Grid>
             </Grid>
@@ -177,7 +148,7 @@
             Foreground="Black"
             Grid.Row="2" 
             Grid.RowSpan="9" 
-            Grid.ColumnSpan="5" 
+            Grid.ColumnSpan="5"
             Content="{Binding ProcessedDataSource}"
             >
         </ScrollViewer>

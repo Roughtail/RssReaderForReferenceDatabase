@@ -25,8 +25,27 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
     public class MainViewModel
         : BaseViewModel
     {
+        #region Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public MainViewModel()
+        {
+            this.WindowTitle = NameTitle.Main.ToString();
+            TitleList.Add(item: new EntityViewTitleHierarchy()
+            {
+                Title = this.WindowTitle
+                ,
+                NameTitle = NameTitle.Main
+            });
+        }
+        #endregion Constructor
+
         #region Field
-        #region DataSource
+
+        #region Property
+
+        #region RssDetail
         /// <summary>
         /// dataSource
         /// </summary>
@@ -48,7 +67,7 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             }
         }
         #endregion
-
+        
         #region ProcessedDataSource
         /// <summary>
         /// processedDataSource
@@ -161,23 +180,9 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         }
         #endregion
 
-        #endregion Field
+        #endregion Property
 
-        #region Constructor
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public MainViewModel()
-        {
-            this.WindowTitle = NameTitle.Main.ToString();
-            TitleList.Add(item: new EntityViewTitleHierarchy()
-            {
-                Title = this.WindowTitle
-                ,
-                NameTitle = NameTitle.Main
-            });
-        }
-        #endregion Constructor
+        #endregion Field
 
         #region Command
 
@@ -958,6 +963,60 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
         }
         #endregion
 
+        #region DispatchCommonProcess
+        /// <summary>
+        /// DispatchCommonProcess
+        /// </summary>
+        /// <param name="Arguments"></param>
+        protected override void DispatchCommonProcess(object Arguments)
+        {
+            base.DispatchCommonProcess(Arguments);
+
+            //ユーザの希望処理電文を解析
+            var argumentsData = Arguments as ArgumentsCommonProcessTarget;
+
+            if (argumentsData is null)
+            {
+                return;
+            }
+
+            switch (argumentsData.NameCommonProcess)
+            {
+                case NameCommonProcess.GainNumber:
+
+                    {
+                        var result = argumentsData.Data as ArgumentsOparateNumber;
+                        if (result == null)
+                        {
+                            return;
+                        }
+                        var getProperty = this.GetType().GetProperty(result.NameControl);
+                        int getValue = (int)getProperty.GetValue(this);
+                        getProperty.SetValue(this, getValue + 1);
+                    }
+                    break;
+
+                case NameCommonProcess.LoseNumber:
+
+                    {
+                        var result = argumentsData.Data as ArgumentsOparateNumber;
+                        if (result == null)
+                        {
+                            return;
+                        }
+                        var getProperty = this.GetType().GetProperty(result.NameControl);
+                        int getValue = (int)getProperty.GetValue(this);
+                        getProperty.SetValue(this, getValue - 1);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            return;
+
+        }
+        #endregion
 
         #endregion Local Method
     }

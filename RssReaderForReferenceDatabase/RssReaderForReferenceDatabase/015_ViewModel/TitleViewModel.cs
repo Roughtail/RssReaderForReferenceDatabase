@@ -27,6 +27,5 @@ namespace RssReaderForReferenceDatabase._015_ViewModel
             });
         }
         #endregion
-
     }
 }

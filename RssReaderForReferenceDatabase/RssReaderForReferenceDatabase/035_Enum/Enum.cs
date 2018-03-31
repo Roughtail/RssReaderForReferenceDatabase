@@ -17,6 +17,7 @@ namespace RssReaderForReferenceDatabase._035_Enum
         Nothing = -1
     }
     #endregion
+
     #region NameProcess
     /// <summary>
     /// NameCommonProcess
@@ -34,7 +35,15 @@ namespace RssReaderForReferenceDatabase._035_Enum
         /// <summary>
         /// DoNothing
         /// </summary>
-        DoNothing
+        DoNothing,
+        /// <summary>
+        /// GainNumber
+        /// </summary>
+        GainNumber,
+        /// <summary>
+        /// LoseNumber
+        /// </summary>
+        LoseNumber
     }
     #endregion
 
