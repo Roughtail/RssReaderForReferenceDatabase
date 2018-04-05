@@ -45,6 +45,7 @@
             Grid.Row="0" 
             Grid.RowSpan="2" 
             Grid.ColumnSpan="5" 
+            Style="{StaticResource DefaultScrollViewer}"
             >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -150,6 +151,7 @@
             Grid.RowSpan="9" 
             Grid.ColumnSpan="5"
             Content="{Binding ProcessedDataSource}"
+            Style="{StaticResource DefaultScrollViewer}"
             >
         </ScrollViewer>
     </Grid>
